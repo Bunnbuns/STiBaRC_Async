@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>STiBaRC Async</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="css/global.css">
+        <link rel="stylesheet" href="css/themes/light.css" id="themer">
+        <link rel="icon" type="image/png" href="fav.png">
+        
+    </head>
+    <body>
+        
+        <div class="nav">
+            
+            <a onclick="home()" class="brand">
+                <img src="STiBaRC-Async-logo.png">
+            </a>
+            <div class="left">
+                
+                <a id="a-home" class="btn" onclick="home()"><i class="material-icons vam"> home </i> Home</a>
+                
+            </div>
+            <div class="right">
+                
+                <span id="loggedOut" style="display: none;">
+                    <a class="btn" onclick="loginPopUp()">Log in</a>
+                </span>
+                
+                <span id="loggedIn" style="display: none;">
+                    <a class="btn" href="#">New Post</a>
+                    
+                    <a class="btn" id="pfpNavDropdown">
+                        <img id="navpfp" class="pfp" src="STiBaRC-logo.png">
+                    </a>
+                </span>
+                
+            </div><!-- / right -->
+            
+        </div><!-- / nav -->
+        
+        <div class="nav-dropdown" id="navDropdown" style="display: none;">
+            <div class="loggedin">
+                <div id="loggedInAs" title="Logged in as anon">anon</div>
+            </div>
+            <div>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+
+        </div><!-- / nav dropdown -->
+        
+        <div class="page">
+        
+            <div class="hero" id="loggedOutHero" style="display: none;">
+                <h1>STiBaRC, but Asynchronous!</h1>
+                <br>
+                <a class="button" href="#">Sign up</a>
+                <a class="button outline" onclick="loginPopUp()">Log in</a>
+            </div><!-- / hero -->
+        
+            <div class="p-page" id="p-PageNotFound" style="display: none"><!-- 404 -->
+                
+                <h2>404 Not Found</h2>
+                <p>Page <span id="not-found-page"></span> not found.</p>
+                
+            </div><!-- / 404 -->
+            
+            <div class="p-page" id="p-Home" style="display: none;"><!-- Home -->
+
+                
+
+            </div><!-- / Home -->
+
+            <div class="p-page" id="p-Library" style="display: none;"><!-- Library -->
+
+                <h2>Library</h2>
+
+                <p>My Music</p>
+                
+            </div><!-- / Library -->
+            
+            <div class="p-page" id="p-Prefrences" style="display: none;"><!-- Prefrences -->
+
+                <h2>Prefrences</h2>
+
+                <h3>Theme</h3>
+                <select id="themechng" class="b">
+                    <option value="auto">Auto</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="custom">Custom theme</option>
+                </select>
+                <input id="themecust" type="text" style="display:none"><br/>
+                <br><button class="button onli" id="submit">Update</button><br><br>
+
+                <h3>More</h3>
+                <button class="button onli" id="logout">Logout</button>
+                
+            </div><!-- / Prefrences -->
+            
+        </div><!-- / page -->
+        
+        <div style="margin:7rem 0;"></div>
+        
+        <div class="bottom-player">
+            <div class="album-image"></div>
+        </div>
+        
+        <script src="js/global.js"></script>
+        <script src="js/prefrences.js"></script>
+        <script>
+            function $(id) {
+	           return document.getElementById(id); //less typing
+            }
+            if(loggedIn){
+                $("loggedOutHero").style.display = "none";
+            }else{
+                $("loggedOutHero").style.display = "block";
+            }
+        </script>
+    </body>
+</html>

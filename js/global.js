@@ -6,6 +6,7 @@ loadTheme();
 go();
 
 window.onload = function(){
+    loadPosts();
     if(loggedIn){
         getUserInfo();
     }
@@ -58,7 +59,7 @@ function pageNotFound(path, load){
     $("not-found-page").innerHTML = path;
 }
 function home(load){
-    document.title = "Home - STiBaRC Music";
+    document.title = "Home - STiBaRC Async";
     hideAllPages();
     $("a-home").classList.add("active");
     $("p-Home").style.display = "block";
@@ -71,7 +72,7 @@ function home(load){
     }
 }
 function library(load){
-    document.title = "Library - STiBaRC Music";
+    document.title = " - STiBaRC Async";
     hideAllPages();
     $("a-library").classList.add("active");
     $("p-Library").style.display = "block";
@@ -204,6 +205,54 @@ function logout() {
         }
     };
     xhttp.open("GET", "https://api.stibarc.com/logout.sjs?sess="+window.localStorage.getItem("sess"), true);
+    xhttp.send();
+}
+
+// turn stuff into stuff //
+var posts = '<h2 style="margin-top:.5rem;">Latest posts</h2>';
+function toLink(id, item) {
+  try {
+    if (item["deleted"]) {
+      item["title"] = "Post deleted";
+    }
+    posts += '<div class="post"> <div class="flexy-boi"><div class="post-up_down">'
+      .concat(
+        "&#8679; " +
+          item["upvotes"] +
+          " &#8681; " +
+          item["downvotes"] +
+          ""
+      )+'</div> <div class="post-list-boi"> <a style="font-size:100%;text-decoration:none;" href="post.html?id='
+      .concat(id)
+      +'"><b>'
+      .concat(
+        item["title"]
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+      )+'</b></a><br><span class="posted-by">Posted by: <a href="user.html?id='
+      .concat(item["poster"])
+      .concat('">')
+      .concat(item["poster"])
+    +'</a><br></span> </div> </div> </div>';
+    lastid = id;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// get bigblob //
+function loadPosts(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        var tmp = JSON.parse(xhttp.responseText);
+		$('posts').innerHTML = "";
+		for (var i = tmp['totalposts']; i > tmp['totalposts']-20; i--) {
+			toLink(i,tmp[i]);
+        }
+        $('posts').innerHTML = posts;
+    };
+    xhttp.open("GET", "https://api.stibarc.com/v2/getposts.sjs", true);
     xhttp.send();
 }
 

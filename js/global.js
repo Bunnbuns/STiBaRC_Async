@@ -210,35 +210,18 @@ function logout() {
 
 // turn stuff into stuff //
 var posts = '<h2 style="margin-top:.5rem;">Latest posts</h2>';
-function toLink(id, item) {
-  try {
-    if (item["deleted"]) {
-      item["title"] = "Post deleted";
+function toLink(id, item){
+    try{
+        if (item["deleted"]){
+            item["title"] = "Post deleted";
+        }
+        posts = posts.concat('<div class="post"><a style="font-size:100%;text-decoration:none;" href="post.html?id=').concat(id).concat('"><b>').concat(item['title'].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")).concat('</b></a><br/>Posted by: <a href="user.html?id=').concat(item['poster']).concat('">').concat(item['poster']).concat("</a><br/>&#8679; "+item['upvotes']+" &#8681; "+item['downvotes']+"</div>");
+        
+        lastid = id;
+      
+    }catch (err){
+        console.log(err);
     }
-    posts += '<div class="post"> <div class="flexy-boi"><div class="post-up_down">'
-      .concat(
-        "&#8679; " +
-          item["upvotes"] +
-          " &#8681; " +
-          item["downvotes"] +
-          ""
-      )+'</div> <div class="post-list-boi"> <a style="font-size:100%;text-decoration:none;" href="post.html?id='
-      .concat(id)
-      +'"><b>'
-      .concat(
-        item["title"]
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-      )+'</b></a><br><span class="posted-by">Posted by: <a href="user.html?id='
-      .concat(item["poster"])
-      .concat('">')
-      .concat(item["poster"])
-    +'</a><br></span> </div> </div> </div>';
-    lastid = id;
-  } catch (err) {
-    console.log(err);
-  }
 }
 
 // get bigblob //

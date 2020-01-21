@@ -361,6 +361,9 @@ input:read-only {
     background-color: transparent;
     border-color: rgba(255, 255, 255, 0.55);
 }
+a, a:visited:not([href]), a:hover:not([href]), a:active:not([href]) {
+    color: inherit;
+}
 .post{
     background-color: var(--post);
     word-wrap: break-word;

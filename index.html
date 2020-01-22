@@ -14,22 +14,22 @@
         
         <div class="nav">
             
-            <a onclick="home()" class="brand">
+            <a onclick="home()" class="brand" title="STiBaRC Async Home">
                 <img src="STiBaRC-Async-logo.png">
             </a>
             <div class="left">
                 
-                <a id="a-home" class="btn" onclick="home()"><i class="material-icons vam"> home </i> Home</a>
+                <a id="a-home" class="btn" onclick="home()" title="Home"><i class="material-icons vam"> home </i> Home</a>
                 
             </div>
             <div class="right">
                 
                 <span id="loggedOut" style="display: none;">
-                    <a class="btn" onclick="loginPopUp()">Log in</a>
+                    <a class="btn" onclick="loginPopUp()" title="Log in">Log in</a>
                 </span>
                 
                 <span id="loggedIn" style="display: none;">
-                    <a class="btn" href="#">New Post</a>
+                    <a class="btn" href="#" title="Create Post"><i class="material-icons vam"> post_add </i></a>
                     
                     <a class="btn" id="pfpNavDropdown">
                         <img id="navpfp" class="pfp" src="STiBaRC-logo.png">
@@ -45,7 +45,7 @@
                 <div id="loggedInAs" title="Logged in as anon">anon</div>
             </div>
             <div>
-                <a href="#" onclick="logout()">Logout</a>
+                <a href="#" onclick="logout()" title="Log out">Logout</a>
             </div>
 
         </div><!-- / nav dropdown -->
@@ -55,8 +55,8 @@
             <div class="hero" id="loggedOutHero" style="display: none;">
                 <h1>STiBaRC, but Asynchronous!</h1>
                 <br>
-                <a class="button" href="#">Sign up</a>
-                <a class="button outline" onclick="loginPopUp()">Log in</a>
+                <a class="button" href="#" title="Sign up">Sign up</a>
+                <a class="button outline" onclick="loginPopUp()" title="Log in">Log in</a>
             </div><!-- / hero -->
         
             <div class="p-page" id="p-PageNotFound" style="display: none"><!-- 404 -->

@@ -226,6 +226,7 @@ function toLink(id, item){
 
 // get bigblob //
 function loadPosts(){
+    $('posts').innerHTML = '<h2 style="margin-top:.5rem;">Latest posts</h2><center><h2>Loading...</h2></center>';
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         var tmp = JSON.parse(xhttp.responseText);

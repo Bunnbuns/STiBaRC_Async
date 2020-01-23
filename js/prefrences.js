@@ -1,4 +1,4 @@
-function prefrences(){
+function loadPrefrences(){
     try {
         $("themechng").value = localStorage.getItem("theme");
         $("themecust").value = localStorage.getItem("customtheme");

@@ -39,18 +39,6 @@ function hideAllPages(){
 	  allNavBtns[i].classList.remove("active");
 	}
 }
-function go(){
-    var path = getAllUrlParams().page;
-    if(path == null || path == "" || path == "/"){
-        home(true);
-    }else if(path == "/library"){
-         library(true);
-    }else if(path == "/prefrences"){
-        //
-    }else{
-        pageNotFound(path, true);
-    }
-}
 function pageNotFound(path, load){
     document.title = "404 Not Found";
     hideAllPages();
@@ -71,6 +59,18 @@ function home(load){
         window.history.pushState(1, "Home", "?page=/");
     }
 }
+function prefrences(load){
+    document.title = "Prefrences - STiBaRC Async";
+    hideAllPages();
+    $("p-Prefrences").style.display = "block";
+    //funtions for this page
+    loadPrefrences();
+    if(load){
+        
+    }else{
+        window.history.pushState(1, "Prefrences", "?page=/prefrences");
+    }
+}
 function library(load){
     document.title = " - STiBaRC Async";
     hideAllPages();
@@ -81,6 +81,19 @@ function library(load){
         
     }else{
         window.history.pushState(1, "Library", "?page=/library");
+    }
+}
+// go
+function go(){
+    var path = getAllUrlParams().page;
+    if(path == null || path == "" || path == "/"){
+        home(true);
+    }else if(path == "/library"){
+        library(true);
+    }else if(path == "/prefrences"){
+        prefrences(true);
+    }else{
+        pageNotFound(path, true);
     }
 }
 

@@ -3,7 +3,6 @@ function $(id) {
 }
 
 loadTheme();
-go();
 
 window.onload = function(){
     loadPosts();
@@ -26,75 +25,6 @@ if(loggedIn){
 }else{
     $("loggedOut").style.display = "flex";
     $("loggedIn").style.display = "none";
-}
-
-// navigation //
-function hideAllPages(){
-    const allPages = document.querySelectorAll(".p-page");
-	for (var i = 0; i < allPages.length; i++) {
-	  allPages[i].style.display = "none";
-	}
-    const allNavBtns = document.querySelectorAll(".nav .btn");
-	for (var i = 0; i < allNavBtns.length; i++) {
-	  allNavBtns[i].classList.remove("active");
-	}
-}
-function pageNotFound(path, load){
-    document.title = "404 Not Found";
-    hideAllPages();
-    $("p-PageNotFound").style.display = "block";
-    // funtions for this page
-    $("not-found-page").innerHTML = path;
-}
-function home(load){
-    document.title = "Home - STiBaRC Async";
-    hideAllPages();
-    $("a-home").classList.add("active");
-    $("p-Home").style.display = "block";
-    //funtions for this page
-    
-    if(load){
-
-    }else{
-        window.history.pushState(1, "Home", "?page=/");
-    }
-}
-function prefrences(load){
-    document.title = "Prefrences - STiBaRC Async";
-    hideAllPages();
-    $("p-Prefrences").style.display = "block";
-    //funtions for this page
-    loadPrefrences();
-    if(load){
-        
-    }else{
-        window.history.pushState(1, "Prefrences", "?page=/prefrences");
-    }
-}
-function library(load){
-    document.title = " - STiBaRC Async";
-    hideAllPages();
-    $("a-library").classList.add("active");
-    $("p-Library").style.display = "block";
-    //funtions for this page
-    if(load){
-        
-    }else{
-        window.history.pushState(1, "Library", "?page=/library");
-    }
-}
-// go
-function go(){
-    var path = getAllUrlParams().page;
-    if(path == null || path == "" || path == "/"){
-        home(true);
-    }else if(path == "/library"){
-        library(true);
-    }else if(path == "/prefrences"){
-        prefrences(true);
-    }else{
-        pageNotFound(path, true);
-    }
 }
 
 // nav dropdown //

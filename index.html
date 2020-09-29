@@ -19,7 +19,7 @@
             </a>
             <div class="left">
                 
-                <a href="./index.html" class="btn" title="Home"><i class="material-icons vam"> home </i> Home</a>
+                <a href="./index.html" class="btn active" title="Home"><i class="material-icons vam"> home </i> Home</a>
                 
             </div>
             <div class="right">
@@ -30,8 +30,6 @@
                 
                 <span id="loggedIn" style="display: none;">
                     <a class="btn" href="#" title="Create Post"><i class="material-icons vam"> post_add </i></a>
-                    <a class="btn" href="./prefrences.html" title="Prefrences"><i class="material-icons vam"> invert_colors </i></a>
-                    
                     <a class="btn" id="pfpNavDropdown">
                         <img id="navpfp" class="pfp" src="./STiBaRC-logo.png">
                     </a>
@@ -44,10 +42,13 @@
         <div class="nav-dropdown" id="navDropdown" style="display: none;">
 
             <div class="loggedin">
-                <div id="loggedInAs" title="Logged in as anon">anon</div>
+                <b><div id="loggedInAs" title="Logged in as anon">anon</div></b>
             </div>
             <div>
-                <a href="#" onclick="logout()" title="Log out">Logout</a>
+                <a href="./prefrences.html" class="item" title="Prefrences"><span class="text">Prefrences</span></a>
+            </div>
+            <div>
+                <a href="#" onclick="logout()" class="item" title="Log out"><span class="text">Logout</span></a>
             </div>
 
         </div><!-- / nav dropdown -->
@@ -70,5 +71,13 @@
         </div><!-- / page -->
         
         <script src="./js/global.js"></script>
+        <script>
+        loadPosts();
+        if(loggedIn){
+            $('loggedOutHero').style.display = "none";
+        }else{
+            $('loggedOutHero').style.display = "block";
+        }
+        </script>
     </body>
 </html>

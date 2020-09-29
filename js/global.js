@@ -5,7 +5,6 @@ function $(id) {
 loadTheme();
 
 window.onload = function(){
-    loadPosts();
     if(loggedIn){
         getUserInfo();
     }
@@ -22,11 +21,9 @@ if(sess !== null && sess !== ""){
 if(loggedIn){
     $("loggedOut").style.display = "none";
     $("loggedIn").style.display = "flex";
-    $('loggedOutHero').style.display = "none";
 }else{
     $("loggedOut").style.display = "flex";
     $("loggedIn").style.display = "none";
-    $('loggedOutHero').style.display = "block";
 }
 
 // nav dropdown //

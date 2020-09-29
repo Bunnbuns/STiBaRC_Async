@@ -3,30 +3,35 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-body{
+
+body {
     margin: 0;
     padding: 0;
     font-family: Verdana,sans-serif;
     background-color: var(--body);
     min-height: 100%;
 }
-img{
+
+img {
     height: auto;
     max-width: 100%;
 }
-.vam{
+
+.vam {
     vertical-align: middle;
 }
-hr{
+
+hr {
     display: block;
     border: none;
     border-bottom: solid 1px rgba(80, 80, 80, 0.25);
     margin: 1.5rem 0;
 }
+
 /*
 ### navbar
 */
-.nav{
+.nav {
     display: -webkit-flex;
     display: flex;
     position: fixed !important;
@@ -41,7 +46,8 @@ hr{
     position: relative;
     z-index: 100;
 }
-.nav .brand{
+
+.nav .brand {
     display: -webkit-flex;
     display: flex;
     -webkit-transition: background-color .2s ease-in-out;
@@ -52,26 +58,31 @@ hr{
     vertical-align: middle;
     cursor: pointer;
 }
-.nav .brand img{
+
+.nav .brand img {
     display: inline-block;
     vertical-align: middle;
     height: 60px;
     flex-shrink: 0;
 }
-.nav .brand:hover{
+
+.nav .brand:hover {
     background-color: var(--navbutton);
 }
-.nav .item{
+
+.nav .item {
     display: inline-block;
     vertical-align: middle;
 }
-.nav a{
+
+.nav a {
     display: -webkit-flex;
     display: flex;
     align-items: center;
     color: var(--onlitext);
 }
-.nav .btn{
+
+.nav .btn {
     text-decoration: none;
     -webkit-transition: background-color .2s ease-in-out;
     -o-transition: background-color .2s ease-in-out;
@@ -80,35 +91,42 @@ hr{
     font-weight: bold;
     cursor: pointer;
 }
-.nav .btn.active{
+
+.nav .btn.active {
     background-color: var(--navbutton);
 }
-.nav .btn:hover{
+
+.nav .btn:hover {
     background-color: var(--navbutton);
 }
-.nav .left{
+
+.nav .left {
     display: -webkit-flex;
     display: flex;
     flex-grow: 1;
     overflow: hidden;
 }
-.nav .right{
+
+.nav .right {
     display: -webkit-flex;
     display: flex;
     margin-right: 8px;
 }
+
 /*
 ### pfp dropdown
 */
-#loggedout{
+#loggedout {
     display: -webkit-flex;
     display: flex;
 }
-#loggedin{
+
+#loggedin {
     display: -webkit-flex;
     display: flex;
 }
-.nav .pfp{
+
+.nav .pfp {
     display: -webkit-flex;
     display: flex;
     min-width: 50px;
@@ -119,45 +137,61 @@ hr{
     margin: -1px 0;
     border-radius: 50%;
 }
-.nav i{
+
+.nav i {
     margin-right: 4px;
 }
+
 /* nav dropdown content */
-.nav-dropdown{
+.nav-dropdown {
     display: block;
     position: fixed;
     right: 8px;
-    top:4.75rem;
+    top: 4.75rem;
     z-index: 101;
     margin-top: 0;
     background-color: var(--navbutton);
     color: var(--onlitext);
-    padding: 15px;
-    min-width: 6.5rem;
+    padding: 15px 0;
+    min-width: 8.5rem;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     box-shadow: 0 5px 12px 0px rgba(77, 77, 77, 0.25);
     text-align: center;
 }
-.nav-dropdown .loggedin{
-    margin-bottom: 1rem;
+
+.nav-dropdown .loggedin {
+    margin: 0 .25rem .75rem .25rem;
 }
+
+.nav-dropdown .item {
+    display: block;
+    padding: .55rem .35rem .55rem .35rem;
+    text-decoration: none;
+}
+
+.nav-dropdown .item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
 /*
 ### genreal styles
 */
-.small-title{
+.small-title {
     color: rgba(77, 77, 77, 0.4);
     font-size: 85%;
 }
-.line-seperator{
+
+.line-seperator {
     font-size: .8em;
     padding: 0 8px;
 }
+
 /*
 ### page
 */
-.page{
-    margin:5.75rem 8px 15px 8px;
+.page {
+    margin: 5.75rem 8px 15px 8px;
     min-height: 70vh;
     background-color: var(--mainblobwithlist);
     color: var(--mainblobwithlisttext);
@@ -165,20 +199,23 @@ hr{
     padding: 15px;
     border-radius: 15px;
 }
-.page h2{
-    margin-top:.5rem;
+
+.page h2 {
+    margin-top: .5rem;
 }
-.page-item{
+
+.page-item {
     display: block;
-	background-color: var(--post);
-	word-wrap: break-word;
+    background-color: var(--post);
+    word-wrap: break-word;
     text-decoration: none;
-	padding: 15px;
-	border-radius: 10px;
+    padding: 15px;
+    border-radius: 10px;
     margin-bottom: 10px;
-	color: var(--posttext);
+    color: var(--posttext);
     box-shadow: 0px 1px 5px rgba(77, 77, 77, 0.32);
 }
+
 /*
 ### buttons
 */
@@ -192,40 +229,51 @@ hr{
     font-weight: bold;
     box-shadow: 0px 1px 5px rgba(77, 77, 77, 0.32);
     transition: all 0.2s;
-    border:none;
+    border: none;
     cursor: pointer;
 }
+
 .onli {
     background-color: var(--footer);
     color: var(--onlitext);
 }
+
 .onli:hover {
     color: var(--onlitext);
 }
-.onli a{
+
+.onli a {
     color: var(--onlitext);
 }
-button.button{
+
+button.button {
     font-size: 12px;
 }
-.button:disabled{
+
+.button:disabled {
     cursor: not-allowed;
 }
-.button:hover:disabled{
+
+.button:hover:disabled {
     box-shadow: 0px 1px 5px rgba(77, 77, 77, 0.32);
 }
-.button:active:disabled{
+
+.button:active:disabled {
     box-shadow: 0px 1px 5px rgba(77, 77, 77, 0.32);
 }
+
 .button:hover {
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.77);
 }
-.button:focus{
+
+.button:focus {
     outline: none;
 }
-.button:active{
+
+.button:active {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.85);
 }
+
 .unsel {
     background-color: rgba(0, 0, 0, 0.459);
     text-decoration: none;
@@ -237,6 +285,7 @@ button.button{
     transition: all 0.2s;
     cursor: pointer;
 }
+
 .sel {
     background-color: var(--buttoncolor);
     text-decoration: none;
@@ -249,9 +298,11 @@ button.button{
     cursor: pointer;
     box-shadow: 0px 1px 5px rgba(77, 77, 77, 0.32);
 }
+
 .button a {
-	text-decoration: none; 
+    text-decoration: none;
 }
+
 /*
 ### inputs & selects
 */
@@ -265,13 +316,16 @@ input:not(.unstyle) {
     border-radius: 5px;
     transition: all 0.2s;
 }
+
 input:not(.unstyle):focus {
     border: 2px solid var(--body);
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.77);
 }
+
 input:not(.unstyle):not([type="file"]):hover {
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.77);
 }
+
 select:not(.unstyle) {
     font-weight: bold;
     background-color: var(--footer);
@@ -291,9 +345,11 @@ select:not(.unstyle) {
     border: none;
     box-shadow: 0px 1px 5px rgba(77, 77, 77, 0.32);
 }
+
 select:not(.unstyle):focus {
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.77);
 }
+
 textarea:not(.unstyle) {
     outline: none;
     border: 2px solid gray;
@@ -304,23 +360,29 @@ textarea:not(.unstyle) {
     border-radius: 5px;
     transition: all 0.2s;
 }
+
 textarea:not(.unstyle):focus {
     border: 2px solid var(--body);
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.77);
 }
+
 textarea:not(.unstyle):hover {
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.77);
 }
-input:-moz-read-only { /* For Firefox */
-  background-color: rgba(220, 220, 220, 0.2);
+
+input:-moz-read-only {
+    /* For Firefox */
+    background-color: rgba(220, 220, 220, 0.2);
 }
+
 input:read-only {
-  background-color: rgba(220, 220, 220, 0.2)
+    background-color: rgba(220, 220, 220, 0.2)
 }
+
 /*
 ### hero
 */
-.hero{
+.hero {
     background: #87a9d6 url(images/index_back.png) no-repeat;
     background-size: cover;
     color: white;
@@ -329,10 +391,12 @@ input:read-only {
     border-radius: 4px;
     margin-bottom: 1rem;
 }
-.hero hr{
+
+.hero hr {
     border: 1px solid rgba(255, 255, 255, 0.23);
 }
-.hero .button{
+
+.hero .button {
     text-decoration: none;
     font-weight: bold;
     background-color: rgba(255, 255, 255, 0.45);
@@ -342,30 +406,36 @@ input:read-only {
     font-weight: bold;
     transition: all 0.2s;
 }
-.hero .button.outline{
-    color:white;
-    padding:8px;
+
+.hero .button.outline {
+    color: white;
+    padding: 8px;
     background-color: transparent;
     border: solid 2px rgba(255, 255, 255, 0.45);
 }
+
 .hero .button a {
     text-decoration: none;
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
+
 .hero .button:hover {
     background-color: rgba(255, 255, 255, 0.55);
 }
-.hero .button.outline:hover{
+
+.hero .button.outline:hover {
     background-color: transparent;
     border-color: rgba(255, 255, 255, 0.55);
 }
+
 a, a:visited:not([href]), a:hover:not([href]), a:active:not([href]) {
     color: inherit;
 }
+
 .post {
-    position:relative;
+    position: relative;
     background-color: var(--post);
     word-wrap: break-word;
     padding: 10px;
@@ -376,12 +446,15 @@ a, a:visited:not([href]), a:hover:not([href]), a:active:not([href]) {
 }
 
 .post .overlay {
-    position:absolute;
-    left:10px; top:10px; bottom:10px; right:10px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    bottom: 10px;
+    right: 10px;
 }
 
 .post .inner {
-    position:relative;
+    position: relative;
     pointer-events: none;
     z-index: 1;
 }

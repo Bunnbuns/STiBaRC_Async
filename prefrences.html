@@ -14,8 +14,8 @@
         
         <div class="nav">
             
-            <a href="./index.html" class="brand" title="Logo">
-                <img src="STiBaRC-Async-logo.png">
+            <a href="index.html" class="brand" title="Logo">
+                <img src="./STiBaRC-Async-logo.png">
             </a>
             <div class="left">
                 
@@ -30,10 +30,8 @@
                 
                 <span id="loggedIn" style="display: none;">
                     <a class="btn" href="#" title="Create Post"><i class="material-icons vam"> post_add </i></a>
-                    <a class="btn active" href="./prefrences.html" title="Prefrences"><i class="material-icons vam"> invert_colors </i></a>
-                    
                     <a class="btn" id="pfpNavDropdown">
-                        <img id="navpfp" class="pfp" src="STiBaRC-logo.png">
+                        <img id="navpfp" class="pfp" src="./STiBaRC-logo.png">
                     </a>
                 </span>
                 
@@ -44,10 +42,13 @@
         <div class="nav-dropdown" id="navDropdown" style="display: none;">
 
             <div class="loggedin">
-                <div id="loggedInAs" title="Logged in as anon">anon</div>
+                <b><div id="loggedInAs" title="Logged in as anon">anon</div></b>
             </div>
             <div>
-                <a href="#" onclick="logout()" title="Log out">Logout</a>
+                <a href="./prefrences.html" class="item" title="Prefrences"><span class="text">Prefrences</span></a>
+            </div>
+            <div>
+                <a href="#" onclick="logout()" class="item" title="Log out"><span class="text">Logout</span></a>
             </div>
 
         </div><!-- / nav dropdown -->

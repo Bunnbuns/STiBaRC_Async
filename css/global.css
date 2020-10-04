@@ -171,7 +171,11 @@ hr {
 }
 
 .nav-dropdown .item:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--footer);
+}
+
+.nav-dropdown .item:active {
+    background-color: var(--button2);
 }
 
 /*

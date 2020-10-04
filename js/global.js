@@ -31,6 +31,7 @@ function updateNavDropdownContent(){
     if(loggedIn){
         $("loggedInAs").innerHTML = localStorage.getItem("username");
         $("loggedInAs").title = 'Logged in as '+localStorage.getItem("username");
+        $("navpfp").title = 'Logged in as '+localStorage.getItem("username");
     }
 }
 // nav dropdown display //

@@ -1,0 +1,43 @@
+:root {
+    --primaryShape: #2c63a5;
+    --primaryShapeLight: #4c7bb4;
+    --primaryShapeDark: #1c4a80;
+    
+    --primaryText: #2c63a5;    
+    --primaryTextLight: #4c7bb4;
+    --primaryTextDark: #1c4a80;
+    
+    --secondaryShape: #CC6C4F;
+    --secondaryText: #CC6C4F;
+    
+    --background: #f2f2f2;
+    --backgroundDark: #b3b3b3;
+    --backgroundLight: #ffffff;
+    --backgroundTemp: #e5e5e5;
+    
+    --text: #808080;
+    --textLight: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primaryShape: #1c4a80;
+        --primaryShapeLight: #2c63a5;
+        --primaryShapeDark: #1c4a80;
+    
+        --primaryText: #ffffff;    
+        --primaryTextLight: #ffffff;
+        --primaryTextDark: #e5e5e5;
+    
+        --secondaryShape: #ffffff;
+        --secondaryText: #ffffff;
+    
+        --background: #3F3F3F;
+        --backgroundDark: #1A1A1A;
+        --backgroundLight: #333333;
+        --backgroundTemp: #333333;
+    
+        --text: #ffffff;
+        --textLight: #ffffff;
+    }
+}

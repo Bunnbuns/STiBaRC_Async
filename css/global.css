@@ -191,7 +191,7 @@ hr {
 ### page
 */
 .page {
-    margin: 5.75rem 8px 15px 8px;
+    margin: 6.25rem 8px 15px 8px;
     min-height: 70vh;
     background-color: var(--mainblobwithlist);
     color: var(--mainblobwithlisttext);

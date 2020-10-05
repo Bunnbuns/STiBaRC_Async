@@ -466,3 +466,23 @@ a, a:visited:not([href]), a:hover:not([href]), a:active:not([href]) {
 .post .inner a {
     pointer-events: all;
 }
+
+#postTitle {
+    margin-bottom: 1rem;
+}
+
+.pfpBlock {
+    margin-bottom: 1rem;
+}
+
+.pfp {
+    display: inline-block;
+    vertical-align: middle;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+#postDate {
+    color: var(--footertext);
+}

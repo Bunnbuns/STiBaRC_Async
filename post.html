@@ -19,7 +19,7 @@
             </a>
             <div class="left">
                 
-                <a href="./index.html" class="btn active" title="Home"><i class="material-icons vam"> home </i> Home</a>
+                <a href="./index.html" class="btn" title="Home"><i class="material-icons vam"> home </i> Home</a>
                 
             </div>
             <div class="right">
@@ -54,31 +54,28 @@
         </div><!-- / nav dropdown -->
         
         <div class="page">
-        
-            <div class="hero" id="loggedOutHero" style="display: none;">
-                <h1>STiBaRC, but Asynchronous!</h1>
-                <br>
-                <a class="button" href="#" title="Sign up">Sign up</a>
-                <a class="button outline" onclick="loginPopUp()" title="Log in">Log in</a>
-            </div><!-- / hero -->
             
             <div>
 
-                <div id="posts"></div>
-
+                <h2 id="postTitle">Loading...</h2>
+                <div class="postMeta">
+                    <div class="pfpBlock">
+                        <img id="postPfp" class="pfp" style="margin-right: 2px" src="img/newjimbo.png">
+                        <span id="postUsername">Loading...</span>
+                    </div>
+                    <div>
+                        <span id="postDate">Loading...</span>
+                    </div>
+                </div>
+                <br>
+                <div id="postContent">
+                </div>
+                
             </div>
             
         </div><!-- / page -->
         
         <script src="./js/global.js"></script>
-        <script src="./js/home.js"></script>
-        <script>
-        loadPosts();
-        if(loggedIn){
-            $('loggedOutHero').style.display = "none";
-        }else{
-            $('loggedOutHero').style.display = "block";
-        }
-        </script>
+        <script src="./js/post.js"></script>
     </body>
 </html>

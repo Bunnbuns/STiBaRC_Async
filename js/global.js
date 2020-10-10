@@ -81,17 +81,21 @@ function getUserInfo(){
         xhttp.send();
     }
     updateNavDropdownContent();
-    getUserPfp();
+    getUserPfp('navpfp', localStorage.getItem("username"));
 }
 // get profile pfp //
-function getUserPfp(){
+function getUserPfp(callback, username){
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         var userPfp = xhttp.responseText;
-        localStorage.setItem('pfp', userPfp);
-        $('navpfp').src = localStorage.getItem('pfp');
+        if(callback == 'post') {
+            $('postPfp').src = userPfp;
+        }else {
+            localStorage.setItem('pfp', userPfp);
+            $('navpfp').src = localStorage.getItem('pfp');
+        }
     };
-    xhttp.open('GET', 'https://api.stibarc.com/v2/getuserpfp.sjs?id='+localStorage.getItem("username"), true);
+    xhttp.open('GET', 'https://api.stibarc.com/v2/getuserpfp.sjs?id='+username, true);
     xhttp.send();
 }
 

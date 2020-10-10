@@ -228,11 +228,13 @@ function buildPost(data) {
     $("postTitle").innerHTML = data.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     $("postUsername").innerHTML = '<a href="user.html?id=' + data.poster + '">' + data.poster + '</a><span id="verified" title="Verified user" style="display:none">' + "&#10004;&#65039;</span>";
     $('postDate').innerHTML = data.postdate;
+    getUserPfp('post', data.poster);
     if (htmlAbleUsernames.indexOf(data.poster) > -1) {
         $("postContent").innerHTML = data.content.replace(/\r\n/g, "<br/>");
     } else {
         $("postContent").innerHTML = data.content.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "<br/>");
     }
+    
 }
 
 function loadPost(id){

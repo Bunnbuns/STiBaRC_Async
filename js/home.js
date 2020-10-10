@@ -17,15 +17,15 @@ function toLink(id, item){
     }
 }
 function loadPosts(){
-    $('posts').innerHTML = '<h2 style="margin-top:.5rem;">Latest posts</h2><center><h2>Loading...</h2></center>';
+    $("posts").innerHTML = '<h2 style="margin-top:.5rem;">Latest posts</h2><center><h2>Loading...</h2></center>';
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         var tmp = JSON.parse(xhttp.responseText);
-		$('posts').innerHTML = "";
+		$("posts").innerHTML = '';
 		for (var i = tmp['totalposts']; i > tmp['totalposts']-20; i--) {
 			toLink(i,tmp[i]);
         }
-        $('posts').innerHTML = posts;
+        $("posts").innerHTML = posts;
     };
     xhttp.open("GET", "https://api.stibarc.com/v2/getposts.sjs", true);
     xhttp.send();

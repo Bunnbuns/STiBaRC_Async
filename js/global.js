@@ -3,7 +3,7 @@ function $(id) {
 }
 
 if(localStorage.getItem('pfp') !== null && localStorage.getItem('pfp') !== ""){
-    $('navpfp').src = localStorage.getItem('pfp');
+    $("navpfp").src = localStorage.getItem('pfp');
 }
 
 var sess = localStorage.getItem("sess");
@@ -27,16 +27,17 @@ function updateNavDropdownContent(){
         $("navpfp").title = 'Logged in as '+localStorage.getItem("username");
     }
 }
+
 // nav dropdown display //
-var pfpNavDropdown = $('pfpNavDropdown');
-var navDropdown = $('navDropdown');
+var pfpNavDropdown = $("pfpNavDropdown");
+var navDropdown = $("navDropdown");
 document.addEventListener("click", function(event) {
     var isClickInside = pfpNavDropdown.contains(event.target);
     var navDropdownContent = navDropdown.contains(event.target);
     
     if($("navDropdown").style.display == "none" || navDropdownContent){
-        $('navDropdown').style.display = "block";
-        $('pfpNavDropdown').classList.add("active");
+        $("navDropdown").style.display = "block";
+        $("pfpNavDropdown").classList.add("active");
     }else{
         $("navDropdown").style.display = "none";
         $("pfpNavDropdown").classList.remove("active");
@@ -83,16 +84,17 @@ function getUserInfo(){
     updateNavDropdownContent();
     getUserPfp('navpfp', localStorage.getItem("username"));
 }
+
 // get profile pfp //
 function getUserPfp(callback, username){
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         var userPfp = xhttp.responseText;
         if(callback == 'post') {
-            $('postPfp').src = userPfp;
+            $("postPfp").src = userPfp;
         }else {
             localStorage.setItem('pfp', userPfp);
-            $('navpfp').src = localStorage.getItem('pfp');
+            $("navpfp").src = localStorage.getItem('pfp');
         }
     };
     xhttp.open('GET', 'https://api.stibarc.com/v2/getuserpfp.sjs?id='+username, true);

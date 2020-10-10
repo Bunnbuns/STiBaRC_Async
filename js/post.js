@@ -1,11 +1,12 @@
+var postData = null;
 var pushed = false;
 
 function getRank() {
 	var thing = new XMLHttpRequest();
 	thing.open("GET", "https://api.stibarc.com/getuser.sjs?id=" + window.localStorage.getItem("username"), false);
 	thing.send(null);
-	var stuff = thing.responseText;
-	var tmp = stuff.split("\n");
+	var postData = thing.responseText;
+	var tmp = postData.split("\n");
 	var rank = tmp[4].split(":")[1];
 	return rank;
 }
@@ -40,44 +41,82 @@ function postcomment(id) {
 	}
 }
 
-function getAttach(id) {
-	document.getElementById("viewattachment").style.display = "none";
-	//if (window.localStorage.getItem("cache"+id) == null || window.localStorage.getItem("cache"+id) == undefined) {
-	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.open("GET", "https://api.stibarc.com/getimage.sjs?id="+id, false);
-	xmlHttp.send();
-	if (xmlHttp.responseText.substring(5,10) == "image") {
-		var img = document.createElement("IMG");
-		img.setAttribute("id", "image");
-		img.setAttribute("src", xmlHttp.responseText);
-		document.getElementById("attachment").appendChild(img);
-	} else if (xmlHttp.responseText.substring(5,10) == "video" || xmlHttp.responseText.substring(5,20) == "application/mp4") {
-		var video = document.createElement("VIDEO");
-		video.setAttribute("controls", null);
-		video.setAttribute("autoplay", null);
-		video.setAttribute("id", "image");
-		var source = document.createElement("SOURCE");
-		source.setAttribute("src", xmlHttp.responseText);
-		video.appendChild(source);
-		document.getElementById("attachment").appendChild(video);
-	} else if (xmlHttp.responseText.substring(5,10) == "audio" || xmlHttp.responseText.substring(5,20) == "application/mp3" || xmlHttp.responseText.substring(5,20) == "application/wav") {
-		var audio = document.createElement("AUDIO");
-		audio.setAttribute("controls", null);
-		audio.setAttribute("autoplay", null);
-		audio.setAttribute("id", "image");
-		var source = document.createElement("SOURCE");
-		source.setAttribute("src", xmlHttp.responseText);
-		audio.appendChild(source);
-		document.getElementById("attachment").appendChild(audio);
+function getAttach(postData) {
+	var images = ["png","jpg","gif","webp","svg"];
+	var videos = ["mov","mp4","m4a","webm"];
+	var audio = ["spx","m3a","wma","wav","mp3"];
+	$("attachmentBtn").style.display = "none";
+	if (postData['real_attachment'] != undefined && postData['real_attachment'] != "" && postData['real_attachment'] != "none") {
+		var ext = postData['real_attachment'].split(".")[1];
+		if (images.indexOf(ext) != -1) {
+			var img = document.createElement("IMG");
+			img.setAttribute("id", "image");
+			img.setAttribute("src", "https://cdn.stibarc.com/images/"+postData['real_attachment']);
+			$("attachment").appendChild(img);
+		} else if (videos.indexOf(ext) != -1) {
+			var video = document.createElement("VIDEO");
+			video.setAttribute("controls", null);
+			video.setAttribute("autoplay", null);
+			video.setAttribute("id", "image");
+			var source = document.createElement("SOURCE");
+			source.setAttribute("src", "https://cdn.stibarc.com/images/"+postData['real_attachment']);
+			video.appendChild(source);
+			$("attachment").appendChild(video);
+		} else if (audio.indexOf(ext) != -1) {
+			var audio = document.createElement("AUDIO");
+			audio.setAttribute("controls", null);
+			audio.setAttribute("autoplay", null);
+			audio.setAttribute("id", "image");
+			var source = document.createElement("SOURCE");
+			source.setAttribute("src", "https://cdn.stibarc.com/images/"+postData['real_attachment']);
+			audio.appendChild(source);
+			$("attachment").appendChild(audio);
+		} else {
+			$("viewattachment").style.display = "";
+			window.open("https://cdn.stibarc.com/images/"+postData['real_attachment']);
+		}
+	} else {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onload = function() {
+            var media = xmlHttp.responseText;
+            if (media.substring(5,10) == "image") {
+                var img = document.createElement("IMG");
+                img.setAttribute("id", "image");
+                img.setAttribute("src", media);
+                $("attachment").appendChild(img);
+            } else if (media.substring(5,10) == "video" || media.substring(5,20) == "application/mp4") {
+                var video = document.createElement("VIDEO");
+                video.setAttribute("controls", null);
+                video.setAttribute("autoplay", null);
+                video.setAttribute("id", "image");
+                var source = document.createElement("SOURCE");
+                source.setAttribute("src", media);
+                video.appendChild(source);
+                $("attachment").appendChild(video);
+            } else if (media.substring(5,10) == "audio" || media.substring(5,20) == "application/mp3" || media.substring(5,20) == "application/wav") {
+                var audio = document.createElement("AUDIO");
+                audio.setAttribute("controls", null);
+                audio.setAttribute("autoplay", null);
+                audio.setAttribute("id", "image");
+                var source = document.createElement("SOURCE");
+                source.setAttribute("src", media);
+                audio.appendChild(source);
+                $("attachment").appendChild(audio);
+            } else {
+                $("viewattachment").style.display = "";
+                window.open(media);
+            }
+        }
+		xmlHttp.open("GET", "https://api.stibarc.com/getimage.sjs?id="+id, true);
+		xmlHttp.send();
 	}
-	var tmp = xmlHttp.responseText.split("");
 }
 
 function replyto(guy) {
 	var sess = window.localStorage.getItem("sess");
 	if (sess != undefined && sess != "" && sess != null) {
-		document.getElementById("comtent").value = document.getElementById("comtent").value + "@" + guy + " ";
-		document.getElementById("comtent").focus();
+		$("comtent").value = $("comtent").value + "@" + guy + " ";
+		$("comtent").focus();
 	} else {
 		location.href="login.html?redir=post.html%3Fid%3D"+getAllUrlParams().id;
 	}
@@ -87,12 +126,12 @@ function reloadvotes() {
 	var id = getAllUrlParams().id;
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id="+id, true);
-	xmlHttp.onload = function(evt) {
-		var stuff = JSON.parse(xmlHttp.responseText);
-		document.getElementById("upvotes").innerHTML = stuff['upvotes'];
-		document.getElementById("downvotes").innerHTML = stuff['downvotes'];
+	xmlHttp.onload = function() {
+		var postData = JSON.parse(xmlHttp.responseText);
+		$("upvotes").innerHTML = postData['upvotes'];
+		$("downvotes").innerHTML = postData['downvotes'];
 	}
-	xmlHttp.send(null);
+	xmlHttp.send();
 }
 
 function upvote() {
@@ -101,7 +140,7 @@ function upvote() {
 	if (sess != undefined && sess != "") {
 		var xhr = new XMLHttpRequest();
 		xhr.open("post", "https://api.stibarc.com/upvote.sjs", true);
-		xhr.onload = function(evt) {
+		xhr.onload = function() {
 			reloadvotes();
 		}
 		xhr.send("id="+id+"&sess="+sess);
@@ -122,12 +161,12 @@ function downvote() {
 }
 
 function doneLoading() {
-    document.getElementById("load").style.display = "none";
-    document.getElementById("page").style.display = "";
+    $("load").style.display = "none";
+    $("page").style.display = "";
 }
 
 function greenify() {
-	var content = document.getElementById("content").innerHTML;
+	var content = $("postContent").innerHTML;
 	var tmp = content.split("<br>");
 	for (var i = 0; i < tmp.length; i++) {
 		if (tmp[i].split("")[0] == "&" && tmp[i].split("")[1] == "g" && tmp[i].split("")[2] == "t" && tmp[i].split("")[3] == ";" && tmp[i].split("")[4] != " ") {
@@ -135,90 +174,12 @@ function greenify() {
 			tmp[i] = '<span style="color:green;">'+tmp[i]+"</span>"
 		}
 	}
-	document.getElementById("content").innerHTML = tmp.join("<br>");
+	$("postContent").innerHTML = tmp.join("<br>");
 }
 
 window.onload = function () {
-	// if (localStorage.showpfps == undefined) {
-	// 	localStorage.showpfps = "true";
-	// }
-	// if (localStorage.noads == "true") {
-	// 	document.getElementById("ads").style.display = "none";
-	// }
-	// pushed = false;
-	// var sess = window.localStorage.getItem("sess");
-	// if (sess != undefined && sess != "" && sess != null) {
-	// 	document.getElementById("postout").style.display = "none";
-	// 	document.getElementById("postin").style.display = "";
-	// 	document.getElementById("footerout").style.display = "none";
-	// 	document.getElementById("footerin").style.display = "";
-	// }
     var id = getAllUrlParams().id;
     loadPost(id);
-
-	// if (localStorage.showpfps == "true") {
-	// 	var thing2 = new XMLHttpRequest();
-	// 	thing2.open("GET", "https://api.stibarc.com/v2/getuser.sjs?id=" + stuff.poster, false);
-	// 	thing2.send(null);
-	// 	var tmp2 = JSON.parse(thing2.responseText);
-	// 	var posterpfp = tmp2['pfp'];
-	// 	document.getElementById("postpfp").src = posterpfp + ' ';
-	// } else {
-	// 	document.getElementById("postpfp").style.display = "none";
-	// 	document.getElementById("postname").style.marginLeft = "0px";
-	// }
-	// document.getElementById("postname").innerHTML = '<a href="user.html?id=' + stuff.poster + '">' + stuff.poster + '</a><span id="verified" title="Verified user" style="display:none">' + "&#10004;&#65039;</span>";
-	// document.getElementById("dateandstuff").innerHTML = stuff.postdate;
-	// checkVerified(stuff.poster);
-	// if (stuff.poster == "herronjo" || stuff.poster == "DomHupp" || stuff.poster == "Aldeenyo" || stuff.poster == "savaka" || stuff.poster == "alluthus" || stuff.poster == "Bunnbuns" || stuff.poster == "Merkle") {
-	// 	document.getElementById("content").innerHTML = stuff.content.replace(/\r\n/g, "<br/>");
-	// } else {
-	// 	document.getElementById("content").innerHTML = stuff.content.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "<br/>");
-	// }
-	// greenify();
-	// if (stuff['edited'] == true) {
-	// 	document.getElementById("edited").style.display = "";
-	// }
-	// if (stuff.poster == window.localStorage.username) {
-	// 	document.getElementById("editlinkcontainer").style.display = "";
-	// }
-	// if (stuff["attachment"] != "none" && stuff["attachment"] != undefined && stuff["attachment"] != null) {
-	// 	document.getElementById("attachment").style.display = "";
-	// }
-	// document.getElementById("upvotes").innerHTML = stuff['upvotes'];
-	// document.getElementById("downvotes").innerHTML = stuff['downvotes'];
-	// xmlHttp.open("GET", "https://api.stibarc.com/getcomments.sjs?id=" + id, false);
-	// xmlHttp.send(null);
-	// if (xmlHttp.responseText != "undefined\n") {
-	// 	var comments = JSON.parse(xmlHttp.responseText);
-	// 	var commentsHTML = '';
-	// 	for (var key in comments) {
-	// 		var image = "";
-	// 		if (localStorage.showpfps == "true") {
-	// 			image = '<img src="' + comments[key].pfp + '"style="width:48px;height:48px;border-radius:50%;vertical-align:middle;margin-right:5px;" />';
-	// 		}
-	// 		commentsHTML += '<div id="comment"><a class="comment-username" href="user.html?id=' + comments[key]['poster'] + '">'+image+comments[key]['poster'].replace(/&/g, "&amp;") + '</a>' + comments[key]['content'].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "<br/>") + '<br/><a class="replyto" href="javascript:replyto('+"'"+comments[key]['poster']+"'"+')"><i>Reply</i></a></div><br/>';
-	// 	}
-	// 	document.getElementById('comments').innerHTML = '<h4>Comments:</h4>'+commentsHTML;
-	// } else {
-	// 	document.getElementById("comments").innerHTML = document.getElementById("comments").innerHTML + '<div id="comment">No comments</div>';
-	// }
-	// document.getElementById("commentbutton").onclick = function (evt) {
-	// 	if (!pushed) {
-	// 		postcomment(id);
-	// 	}
-	// }
-	// document.getElementById("editlink").onclick = function (evt) {
-	// 	document.location.href = "editpost.html?id=" + id;
-	// }
-	// if (stuff.client != undefined) {
-	// 	document.getElementById("client").innerHTML = "<i>Posted using "+stuff.client+"</i>";
-	// 	document.getElementById("client").style.display = "";
-	// }
-	// document.getElementById("viewattachment").onclick = function (evt) {
-	// 	getAttach(stuff["attachment"]);
-	// }
-	// doneLoading();
 }
 
 var htmlAbleUsernames = ["herronjo", "DomHupp", "Aldeenyo", "savaka", "alluthus", "Bunnbuns", "Merkle"];
@@ -227,21 +188,32 @@ function buildPost(data) {
     document.title = data.title + " - STiBaRC";
     $("postTitle").innerHTML = data.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     $("postUsername").innerHTML = '<a href="user.html?id=' + data.poster + '">' + data.poster + '</a><span id="verified" title="Verified user" style="display:none">' + "&#10004;&#65039;</span>";
-    $('postDate').innerHTML = data.postdate;
+    $("postDate").innerHTML = data.postdate;
     getUserPfp('post', data.poster);
     if (htmlAbleUsernames.indexOf(data.poster) > -1) {
         $("postContent").innerHTML = data.content.replace(/\r\n/g, "<br/>");
     } else {
         $("postContent").innerHTML = data.content.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "<br/>");
     }
-    
+    greenify();
+	// if (data['edited'] == true) {
+	// 	$("edited").style.display = "";
+	// }
+	// if (data.poster == window.localStorage.username) {
+	// 	$("editlinkcontainer").style.display = "";
+	// }
+	if (data["attachment"] != "none" && data["attachment"] != undefined && data["attachment"] != null) {
+		$("attachment").style.display = "";
+	}
+	// $("upvotes").innerHTML = postData['upvotes'];
+	// $("downvotes").innerHTML = postData['downvotes'];
 }
 
 function loadPost(id){
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        var data = JSON.parse(xhttp.responseText);
-		buildPost(data);
+        postData = JSON.parse(xhttp.responseText);
+		buildPost(postData);
     };
     xhttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id=" + id, true);
     xhttp.send();

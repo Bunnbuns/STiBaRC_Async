@@ -483,10 +483,6 @@ a, a:visited:not([href]), a:hover:not([href]), a:active:not([href]) {
     border-radius: 50%;
 }
 
-#postDate {
-    color: var(--footertext);
-}
-
 .badge {
     display: inline-block;
     background-color: var(--body);
@@ -497,6 +493,23 @@ a, a:visited:not([href]), a:hover:not([href]), a:active:not([href]) {
     border-radius: 3px;
 }
 
+/*
+### post page styles
+*/
+#postDate {
+    color: var(--footertext);
+}
+
 #edited {
     font-style: italic;
+}
+
+#image {
+    width: 50%;
+}
+
+@media only screen and (max-width: 700px) {
+  #image {
+    width: 100%;
+  }
 }

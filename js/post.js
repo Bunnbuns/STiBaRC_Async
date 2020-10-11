@@ -103,11 +103,11 @@ function getAttach(postData) {
                 audio.appendChild(source);
                 $("attachment").appendChild(audio);
             } else {
-                $("viewattachment").style.display = "";
+                $("attachmentBtn").style.display = "";
                 window.open(media);
             }
         }
-		xmlHttp.open("GET", "https://api.stibarc.com/getimage.sjs?id="+id, true);
+		xmlHttp.open("GET", "https://api.stibarc.com/getimage.sjs?id="+postData['attachment'], true);
 		xmlHttp.send();
 	}
 }
@@ -178,8 +178,7 @@ function greenify() {
 }
 
 window.onload = function () {
-    var id = getAllUrlParams().id;
-    loadPost(id);
+    loadPost(getAllUrlParams().id);
 }
 
 var htmlAbleUsernames = ["herronjo", "DomHupp", "Aldeenyo", "savaka", "alluthus", "Bunnbuns", "Merkle"];

@@ -195,9 +195,9 @@ function buildPost(data) {
         $("postContent").innerHTML = data.content.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "<br/>");
     }
     greenify();
-	// if (data['edited'] == true) {
-	// 	$("edited").style.display = "";
-	// }
+	if (data['edited'] == true) {
+		$("edited").style.display = "";
+	}
 	// if (data.poster == window.localStorage.username) {
 	// 	$("editlinkcontainer").style.display = "";
 	// }

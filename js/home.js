@@ -16,6 +16,7 @@ function toLink(id, item){
         console.log(err);
     }
 }
+
 function loadPosts(){
     $("posts").innerHTML = '<h2 style="margin-top:.5rem;">Latest posts</h2><center><h2>Loading...</h2></center>';
     var xhttp = new XMLHttpRequest();
@@ -29,4 +30,12 @@ function loadPosts(){
     };
     xhttp.open("GET", "https://api.stibarc.com/v2/getposts.sjs", true);
     xhttp.send();
+}
+
+loadPosts();
+
+if(loggedIn){
+    $('loggedOutHero').style.display = "none";
+}else{
+    $('loggedOutHero').style.display = "block";
 }

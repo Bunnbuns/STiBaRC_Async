@@ -190,6 +190,10 @@ hr {
     padding: 0 8px;
 }
 
+a {
+    color: inherit;
+}
+
 /*
 ### page
 */
@@ -432,10 +436,6 @@ input:read-only {
 .hero .button.outline:hover {
     background-color: transparent;
     border-color: rgba(255, 255, 255, 0.55);
-}
-
-a, a:visited:not([href]), a:hover:not([href]), a:active:not([href]) {
-    color: inherit;
 }
 
 .post {

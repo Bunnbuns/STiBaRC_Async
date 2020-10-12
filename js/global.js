@@ -77,12 +77,15 @@ function getUserInfo(){
         xhttp.onload = function() {
             localStorage.setItem("username",  xhttp.responseText.replace(/(\r\n|\n|\r)/gm,""));
             console.log('Username ls is set.');
+            updateNavDropdownContent();
+            getUserPfp('navpfp', localStorage.getItem("username"));
         };
         xhttp.open('GET', 'https://api.stibarc.com/v2/getusername.sjs?sess='+localStorage.getItem("sess"), true);
         xhttp.send();
+    } else {
+        updateNavDropdownContent();
+        getUserPfp('navpfp', localStorage.getItem("username"));
     }
-    updateNavDropdownContent();
-    getUserPfp('navpfp', localStorage.getItem("username"));
 }
 
 // get profile pfp //

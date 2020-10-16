@@ -72,7 +72,7 @@ function getAttach(postData) {
 			audio.appendChild(source);
 			$("attachment").appendChild(audio);
 		} else {
-			$("viewattachment").style.display = "";
+			$("attachmentBtn").style.display = "";
 			window.open("https://cdn.stibarc.com/images/"+postData['real_attachment']);
 		}
 	} else {

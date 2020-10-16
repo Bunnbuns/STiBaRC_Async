@@ -127,9 +127,9 @@ function reloadvotes() {
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id="+id, true);
 	xmlHttp.onload = function() {
-		var postData = JSON.parse(xmlHttp.responseText);
-		$("upvotes").innerHTML = postData['upvotes'];
-		$("downvotes").innerHTML = postData['downvotes'];
+		var data = JSON.parse(xmlHttp.responseText);
+		$("upvotes").innerHTML = data['upvotes'];
+		$("downvotes").innerHTML = data['downvotes'];
 	}
 	xmlHttp.send();
 }
@@ -204,8 +204,8 @@ function buildPost(data) {
 	if (data["attachment"] != "none" && data["attachment"] != undefined && data["attachment"] != null) {
 		$("attachment").style.display = "";
 	}
-	// $("upvotes").innerHTML = postData['upvotes'];
-	// $("downvotes").innerHTML = postData['downvotes'];
+	$("upvotes").innerHTML = postData['upvotes'];
+	$("downvotes").innerHTML = postData['downvotes'];
 }
 
 function loadPost(id){

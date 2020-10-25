@@ -1,5 +1,9 @@
 function $(id) {
-	return document.getElementById(id); //less typing
+    if(id.startsWith(".")){
+        return document.getElementsByClassName(id.substring(1));
+    }else{
+        return document.getElementById(id);
+    }
 }
 
 if(localStorage.getItem('pfp') !== null && localStorage.getItem('pfp') !== ""){

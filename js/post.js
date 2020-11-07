@@ -183,7 +183,7 @@ window.onload = function () {
 
 var htmlAbleUsernames = ["herronjo", "DomHupp", "Aldeenyo", "savaka", "alluthus", "Bunnbuns", "Merkle"];
 
-function buildPost(data) {
+function buildPost(data, id) {
     document.title = data.title + " - STiBaRC";
     $("postTitle").innerHTML = data.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     $("postUsername").innerHTML = '<a href="user.html?id=' + data.poster + '">' + data.poster + '</a><span id="verified" title="Verified user" style="display:none">' + "&#10004;&#65039;</span>";
@@ -198,9 +198,10 @@ function buildPost(data) {
 	if (data['edited'] == true) {
 		$("edited").style.display = "";
 	}
-	// if (data.poster == window.localStorage.username) {
-	// 	$("editlinkcontainer").style.display = "";
-	// }
+	if (data.poster == window.localStorage.username) {
+		$("editlinkcontainer").style.display = "";
+		$("editlink").href = "editpost.html?id=" + id;
+	}
 	if (data["attachment"] != "none" && data["attachment"] != undefined && data["attachment"] != null) {
 		$("attachment").style.display = "";
 	}
@@ -212,7 +213,7 @@ function loadPost(id){
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         postData = JSON.parse(xhttp.responseText);
-		buildPost(postData);
+		buildPost(postData, id);
     };
     xhttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id=" + id, true);
     xhttp.send();

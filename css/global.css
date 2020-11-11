@@ -510,6 +510,43 @@ input:read-only {
     font-style: italic;
 }
 
+#comment {
+    background-color: var(--post);
+    word-wrap: break-word;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 5px rgba(77, 77, 77, 0.32);
+}
+
+.replyto {
+    display: inline-block;
+    color: var(--buttoncolortext);
+    font-size: 80%;
+    text-decoration: none;
+    background-color: var(--buttoncolor);
+    padding: 3px 6px;
+    margin-top: 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.replyto a {
+	text-decoration: none; 
+}
+
+.replyto:hover {
+    box-shadow: 0px 1px 5px rgba(77, 77, 77, 0.32);
+}
+.replyto:focus{
+    box-shadow: 0px 1px 5px rgba(77, 77, 77, 0.52);
+}
+
+.comment-username {
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
 #image {
     width: 50%;
 }

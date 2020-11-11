@@ -178,7 +178,29 @@ function greenify() {
 }
 
 window.onload = function () {
-    loadPost(getAllUrlParams().id);
+	var id = getAllUrlParams().id;
+	loadPost(id);
+	loadComments(id);
+}
+
+function loadComments(id) {
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.onload = function() {
+		if (xmlHttp.responseText != "undefined\n") {
+			var comments = JSON.parse(xmlHttp.responseText);
+			var commentsHTML = '';
+			for (var key in comments) {
+				var image = "";
+				image = '<img src="' + comments[key].pfp + '"style="width:48px;height:48px;border-radius:50%;vertical-align:middle;margin-right:5px;" />';
+				commentsHTML += '<div id="comment"><div><a class="comment-username" href="user.html?id=' + comments[key]['poster'] + '">'+image+comments[key]['poster'].replace(/&/g, "&amp;") + '</a></div><div>' + comments[key]['content'].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "<br/>") + '</div><a class="replyto" href="javascript:replyto('+"'"+comments[key]['poster']+"'"+')"><i>Reply</i></a></div><br/>';
+			}
+			$('comments').innerHTML = commentsHTML;
+		} else {
+			$("comments").innerHTML = document.getElementById("comments").innerHTML + '<div id="comment">No comments</div>';
+		}
+	}
+	xmlHttp.open("GET", "https://api.stibarc.com/getcomments.sjs?id=" + id, true);
+	xmlHttp.send(null);
 }
 
 var htmlAbleUsernames = ["herronjo", "DomHupp", "Aldeenyo", "savaka", "alluthus", "Bunnbuns", "Merkle"];
@@ -214,11 +236,11 @@ function buildPost(data, id) {
 }
 
 function loadPost(id){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-        postData = JSON.parse(xhttp.responseText);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onload = function() {
+        postData = JSON.parse(xmlHttp.responseText);
 		buildPost(postData, id);
     };
-    xhttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id=" + id, true);
-    xhttp.send();
+    xmlHttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id=" + id, true);
+    xmlHttp.send();
 }

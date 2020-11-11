@@ -207,6 +207,10 @@ function buildPost(data, id) {
 	}
 	$("upvotes").innerHTML = postData['upvotes'];
 	$("downvotes").innerHTML = postData['downvotes'];
+	if (data.client != undefined) {
+		$("client").innerHTML = "<i>Posted using "+data.client+"</i>";
+		$("client").style.display = "";
+	}
 }
 
 function loadPost(id){

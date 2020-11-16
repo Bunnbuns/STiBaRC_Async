@@ -243,8 +243,7 @@ function buildPost(data, id) {
         $("postContent").innerHTML = data.content.replace(/\r\n/g, "<br/>");
     } else {
         $("postContent").innerHTML = data.content.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "<br/>");
-    }
-    greenify();
+	}
 	if (data['edited'] == true) {
 		$("edited").style.display = "";
 	}
@@ -257,7 +256,6 @@ function buildPost(data, id) {
 	}
 	$("upvotes").innerHTML = postData['upvotes'];
 	$("downvotes").innerHTML = postData['downvotes'];
-	emojis();
 	if (data.client != undefined) {
 		$("client").innerHTML = "<i>Posted using "+data.client+"</i>";
 		$("client").style.display = "";
@@ -269,6 +267,8 @@ function loadPost(id){
     xmlHttp.onload = function() {
         postData = JSON.parse(xmlHttp.responseText);
 		buildPost(postData, id);
+		emojis();
+		greenify();
     };
     xmlHttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id=" + id, true);
     xmlHttp.send();

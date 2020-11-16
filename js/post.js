@@ -177,6 +177,34 @@ function greenify() {
 	$("postContent").innerHTML = tmp.join("<br>");
 }
 
+var emojiIndex = {};
+
+function emojis() {
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.onload = function() {
+		emojiIndex = JSON.parse(this.responseText);
+		var content = $("postContent").innerHTML;
+		var title = $("postTitle").innerHTML;
+		for (var emoji in emojiIndex) {
+			var re = new RegExp("\\:"+emoji+"\\:","g");
+			content = content.replace(re, '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':"></img>');
+			title = title.replace(re, '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':"></img>');
+		}
+		$("postContent").innerHTML = content;
+		$("postTitle").innerHTML = title;
+	}
+	xmlHttp.open("GET","https://cdn.stibarc.com/emojis/index.json", true);
+	xmlHttp.send("");
+}
+
+function emojiComment(commentText) {
+	for (var emoji in emojiIndex) {
+		var re = new RegExp("\\:"+emoji+"\\:","g");
+		commentText = commentText.replace(re, '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':"></img>');
+	}
+	return commentText;
+}
+
 window.onload = function () {
 	var id = getAllUrlParams().id;
 	loadPost(id);
@@ -192,7 +220,7 @@ function loadComments(id) {
 			for (var key in comments) {
 				var image = "";
 				image = '<img src="' + comments[key].pfp + '"style="width:48px;height:48px;border-radius:50%;vertical-align:middle;margin-right:5px;" />';
-				commentsHTML += '<div id="comment"><div><a class="comment-username" href="user.html?id=' + comments[key]['poster'] + '">'+image+comments[key]['poster'].replace(/&/g, "&amp;") + '</a></div><div>' + comments[key]['content'].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "<br/>") + '</div><a class="replyto" href="javascript:replyto('+"'"+comments[key]['poster']+"'"+')"><i>Reply</i></a></div><br/>';
+				commentsHTML += '<div id="comment"><div><a class="comment-username" href="user.html?id=' + comments[key]['poster'] + '">'+image+comments[key]['poster'].replace(/&/g, "&amp;") + '</a></div><div>' + emojiComment(comments[key]['content'].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "<br/>")) + '</div><a class="replyto" href="javascript:replyto('+"'"+comments[key]['poster']+"'"+')"><i>Reply</i></a></div><br/>';
 			}
 			$('comments').innerHTML = commentsHTML;
 		} else {
@@ -229,6 +257,7 @@ function buildPost(data, id) {
 	}
 	$("upvotes").innerHTML = postData['upvotes'];
 	$("downvotes").innerHTML = postData['downvotes'];
+	emojis();
 	if (data.client != undefined) {
 		$("client").innerHTML = "<i>Posted using "+data.client+"</i>";
 		$("client").style.display = "";

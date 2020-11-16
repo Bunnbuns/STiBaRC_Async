@@ -178,6 +178,9 @@ function greenify() {
 }
 
 var emojiIndex = {};
+function emojiHTML(emoji) {
+	return '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':" alt=":'+emoji+':"></img>';
+}
 
 function emojis() {
 	var xmlHttp = new XMLHttpRequest();
@@ -187,8 +190,8 @@ function emojis() {
 		var title = $("postTitle").innerHTML;
 		for (var emoji in emojiIndex) {
 			var re = new RegExp("\\:"+emoji+"\\:","g");
-			content = content.replace(re, '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':"></img>');
-			title = title.replace(re, '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':"></img>');
+			content = content.replace(re, emojiHTML(emoji));
+			title = title.replace(re, emojiHTML(emoji));
 		}
 		$("postContent").innerHTML = content;
 		$("postTitle").innerHTML = title;
@@ -200,7 +203,7 @@ function emojis() {
 function emojiComment(commentText) {
 	for (var emoji in emojiIndex) {
 		var re = new RegExp("\\:"+emoji+"\\:","g");
-		commentText = commentText.replace(re, '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':"></img>');
+		commentText = commentText.replace(re, emojiHTML(emoji));
 	}
 	return commentText;
 }

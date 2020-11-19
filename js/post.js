@@ -221,7 +221,7 @@ function loadComments(id) {
 			}
 			$('comments').innerHTML = commentsHTML;
 		} else {
-			$("comments").innerHTML = document.getElementById("comments").innerHTML + '<div id="comment">No comments</div>';
+			$("comments").innerHTML = '<div id="comment">No comments</div>';
 		}
 	}
 	xmlHttp.open("GET", "https://api.stibarc.com/getcomments.sjs?id=" + id, true);

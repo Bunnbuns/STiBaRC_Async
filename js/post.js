@@ -177,27 +177,20 @@ function greenify() {
 	$("postContent").innerHTML = tmp.join("<br>");
 }
 
-var emojiIndex = {};
 function emojiHTML(emoji) {
-	return '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':" alt=":'+emoji+':"></img>';
+	return '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':" alt=":'+emoji+':">';
 }
 
-function emojis() {
-	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.onload = function() {
-		emojiIndex = JSON.parse(this.responseText);
-		var content = $("postContent").innerHTML;
-		var title = $("postTitle").innerHTML;
-		for (var emoji in emojiIndex) {
-			var re = new RegExp("\\:"+emoji+"\\:","g");
-			content = content.replace(re, emojiHTML(emoji));
-			title = title.replace(re, emojiHTML(emoji));
-		}
-		$("postContent").innerHTML = content;
-		$("postTitle").innerHTML = title;
+function emojisReplace(emojiIndex) {
+	var content = $("postContent").innerHTML;
+	var title = $("postTitle").innerHTML;
+	for (var emoji in emojiIndex) {
+		var re = new RegExp("\\:"+emoji+"\\:","g");
+		content = content.replace(re, emojiHTML(emoji));
+		title = title.replace(re, emojiHTML(emoji));
 	}
-	xmlHttp.open("GET","https://cdn.stibarc.com/emojis/index.json", true);
-	xmlHttp.send("");
+	$("postContent").innerHTML = content;
+	$("postTitle").innerHTML = title;
 }
 
 function emojiComment(commentText) {
@@ -212,6 +205,7 @@ window.onload = function () {
 	var id = getAllUrlParams().id;
 	loadPost(id);
 	loadComments(id);
+	updateEmojiIndex();
 }
 
 function loadComments(id) {
@@ -247,6 +241,11 @@ function buildPost(data, id) {
     } else {
         $("postContent").innerHTML = data.content.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\r\n/g, "<br/>");
 	}
+	if(localStorage.getItem('emojiIndex') !== null && localStorage.getItem('emojiIndex') !== "") {
+		emojisReplace(emojiIndex);
+	} else {
+		updateEmojiIndex('post');
+	}
 	if (data['edited'] == true) {
 		$("edited").style.display = "";
 	}
@@ -270,7 +269,6 @@ function loadPost(id){
     xmlHttp.onload = function() {
         postData = JSON.parse(xmlHttp.responseText);
 		buildPost(postData, id);
-		emojis();
 		greenify();
     };
     xmlHttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id=" + id, true);

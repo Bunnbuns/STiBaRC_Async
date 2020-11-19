@@ -1,30 +1,34 @@
 function $(id) {
-    if(id.startsWith(".")){
+    if(id.startsWith(".")) {
         return document.getElementsByClassName(id.substring(1));
-    }else{
+    } else {
         return document.getElementById(id);
     }
 }
 
-if(localStorage.getItem('pfp') !== null && localStorage.getItem('pfp') !== ""){
+if(localStorage.getItem('pfp') !== null && localStorage.getItem('pfp') !== "") {
     $("navpfp").src = localStorage.getItem('pfp');
+}
+var emojiIndex = {};
+if(localStorage.getItem('emojiIndex') !== null && localStorage.getItem('emojiIndex') !== "") {
+    emojiIndex = JSON.parse(localStorage.getItem('emojiIndex'));
 }
 
 var sess = localStorage.getItem("sess");
 var loggedIn = false;
-if(sess !== null && sess !== ""){
+if(sess !== null && sess !== "") {
     loggedIn = true;
 }
-if(loggedIn){
+if(loggedIn) {
     $("loggedOut").style.display = "none";
     $("loggedIn").style.display = "flex";
-}else{
+} else {
     $("loggedOut").style.display = "flex";
     $("loggedIn").style.display = "none";
 }
 
 // nav dropdown //
-function updateNavDropdownContent(){
+function updateNavDropdownContent() {
     if(loggedIn){
         $("loggedInAs").innerHTML = localStorage.getItem("username");
         $("loggedInAs").title = 'Logged in as '+localStorage.getItem("username");
@@ -39,10 +43,10 @@ document.addEventListener("click", function(event) {
     var isClickInside = pfpNavDropdown.contains(event.target);
     var navDropdownContent = navDropdown.contains(event.target);
     
-    if($("navDropdown").style.display == "none" || navDropdownContent){
+    if($("navDropdown").style.display == "none" || navDropdownContent) {
         $("navDropdown").style.display = "block";
         $("pfpNavDropdown").classList.add("active");
-    }else{
+    } else {
         $("navDropdown").style.display = "none";
         $("pfpNavDropdown").classList.remove("active");
     }
@@ -65,7 +69,7 @@ function loginPopUp() {
                 console.log(evt.data);
                 loginpopup.close();
                 location.href = "index.html";
-            }else {
+            } else {
                 loginpopup.close();
                 popuped = false;
             }
@@ -74,8 +78,8 @@ function loginPopUp() {
 }
 
 // get profile info //
-function getUserInfo(){
-    if(localStorage.getItem("username") == null){
+function getUserInfo() {
+    if(localStorage.getItem("username") == null) {
         console.log('Username ls not set, requesting it.');
         var xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
@@ -93,13 +97,13 @@ function getUserInfo(){
 }
 
 // get profile pfp //
-function getUserPfp(callback, username){
+function getUserPfp(callback, username) {
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         var userPfp = xhttp.responseText;
         if(callback == 'post') {
             $("postPfp").src = userPfp;
-        }else {
+        } else {
             localStorage.setItem('pfp', userPfp);
             $("navpfp").src = localStorage.getItem('pfp');
         }
@@ -139,12 +143,12 @@ function logout() {
     xhttp.onload = function() {
         var tmp = xhttp.responseText;
         console.log('Loging out... (Request sent)');
-        if(tmp == 'gud\n'){
+        if(tmp == 'gud\n') {
             // logout went ok
             window.localStorage.removeItem("sess");
             console.log('Loging out complete: '+tmp);
             location.href = "index.html";
-        }else{
+        } else {
             // logout request sent but might no be ok
             console.log('Logout failed (Request error: '+tmp+')');
             alert('Logout may have failed (Request error: '+tmp+')');
@@ -152,6 +156,20 @@ function logout() {
     };
     xhttp.open("GET", "https://api.stibarc.com/logout.sjs?sess="+window.localStorage.getItem("sess"), true);
     xhttp.send();
+}
+
+// emoji index //
+function updateEmojiIndex(callback) {
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.onload = function() {
+		emojiIndex = JSON.parse(this.responseText);
+		localStorage.setItem('emojiIndex', this.responseText);
+		if(callback == 'post') {
+			emojisReplace(emojiIndex)
+		}
+	}
+	xmlHttp.open("GET","https://cdn.stibarc.com/emojis/index.json", true);
+	xmlHttp.send(null);
 }
 
 // get url params //
@@ -191,6 +209,6 @@ function getAllUrlParams(url) {
 }
 
 loadTheme();
-if(loggedIn){
+if(loggedIn) {
     getUserInfo();
 }

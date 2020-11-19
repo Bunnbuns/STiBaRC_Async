@@ -149,17 +149,19 @@ hr {
     z-index: 101;
     margin-top: 0;
     background-color: var(--navbutton);
+    border-top: none;
     color: var(--onlitext);
     padding: 15px 0;
     min-width: 8.5rem;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    box-shadow: 0 5px 12px 0px rgba(77, 77, 77, 0.25);
+    box-shadow: 0 5px 12px 0px rgba(90, 90, 90, 0.25);
+    
     text-align: center;
 }
 
-.nav-dropdown .loggedin {
-    margin: 0 .25rem .75rem .25rem;
+.nav-dropdown .loggedin:first-child {
+    padding: 0 .25rem .75rem .25rem;
 }
 
 .nav-dropdown .item {

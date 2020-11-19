@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <meta charset="utf-8" />
         <title>STiBaRC Async</title>
+        
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="./css/global.css">
-        <link rel="stylesheet" href="./css/themes/light.css" id="themer">
         <link rel="icon" type="image/png" href="./fav.png">
+    	<meta name="mobile-web-app-capable" content="yes">
+	    <meta name="mobile-web-app-title" content="STiBaRC">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <link rel="stylesheet" href="./css/themes/light.css" id="themer">
+        <link rel="stylesheet" href="./css/global.css">
 
     </head>
     <body>
@@ -18,24 +23,21 @@
                 <img src="./logo.png">
             </a>
             <div class="left">
-                
-                <a href="./index.html" class="btn active" title="Home"><i class="material-icons vam"> home </i></a>
-
+                                
             </div>
             <div class="right">
                 
                 <span id="loggedOut" style="display: none;">
                     <a class="btn" onclick="loginPopUp()" title="Log in">Log in</a>
                 </span>
-                
                 <span id="loggedIn" style="display: none;">
                     <a class="btn" href="#" title="Create Post"><i class="material-icons vam"> post_add </i></a>
                     <a class="btn" id="pfpNavDropdown">
-                        <img id="navpfp" class="pfp" src="././img/newjimbo.png" title="">
+                        <img id="navpfp" class="pfp" src="./img/newjimbo.png" title="">
                     </a>
                 </span>
                 
-            </div><!-- / right -->
+            </div>
             
         </div><!-- / nav -->
         

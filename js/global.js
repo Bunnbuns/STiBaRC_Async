@@ -158,7 +158,18 @@ function logout() {
     xhttp.send();
 }
 
-// emoji index //
+function checkVerified(poster) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onload = function() {
+        var data = this.responseText.split("\n")[0];
+        if (data == "true") {
+            $("verified").style.display = "";
+        }
+    }
+	xmlHttp.open("GET", "https://api.stibarc.com/checkverify.sjs?id=" + poster, true);
+	xmlHttp.send(null);
+}
+
 function updateEmojiIndex(callback) {
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.onload = function() {
@@ -172,7 +183,6 @@ function updateEmojiIndex(callback) {
 	xmlHttp.send(null);
 }
 
-// get url params //
 function getAllUrlParams(url) {
 	var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
 	var obj = {};

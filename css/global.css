@@ -21,6 +21,16 @@ img {
     vertical-align: middle;
 }
 
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.flex-grow {
+    display: flex;
+    flex-grow: 1;
+}
+
 hr {
     display: block;
     border: none;
@@ -208,7 +218,7 @@ a {
     border-radius: 15px;
 }
 
-.page h2 {
+.page .title {
     margin-top: .5rem;
 }
 
@@ -395,6 +405,15 @@ input:read-only {
 }
 
 /*
+### emoji
+*/
+.emoji {
+    max-width: 32px;
+    max-height: 32px;
+    vertical-align: middle;
+}
+
+/*
 ### hero
 */
 .hero {
@@ -476,7 +495,7 @@ input:read-only {
 }
 
 #postTitle {
-    margin-bottom: 1rem;
+    margin: .75rem 0 1rem 0;
 }
 
 .pfpBlock {
@@ -486,9 +505,19 @@ input:read-only {
 .pfp {
     display: inline-block;
     vertical-align: middle;
-    width: 45px;
-    height: 45px;
     border-radius: 50%;
+    width: 48px;
+    height: 48px;
+}
+
+.pfp.large {
+    width: 55px;
+    height: 55px;
+}
+
+.pfp.extraLarge {
+    width: 75px;
+    height: 75px;
 }
 
 .badge {
@@ -559,8 +588,19 @@ input:read-only {
   }
 }
 
-.emoji {
-	max-width: 32px;
-	max-height: 32px;
-	vertical-align: middle;
+/*
+### user page styles
+*/
+.profile .userInfo {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: .25rem;
+}
+
+.profile #username {
+    margin: 0 0 .25rem 0;
+}
+
+.profile #name {
+    color: var(--footertext);
 }

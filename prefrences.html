@@ -18,25 +18,29 @@
     <body>
         
         <div class="nav">
+
+            <div class="navContainer">
             
-            <a href="index.html" class="brand" title="Logo">
-                <img src="./logo.png">
-            </a>
-            <div class="left">
-                                
-            </div>
-            <div class="right">
-                
-                <span id="loggedOut" style="display: none;">
-                    <a class="btn" onclick="loginPopUp()" title="Log in">Log in</a>
-                </span>
-                <span id="loggedIn" style="display: none;">
-                    <a class="btn" href="#" title="Create Post"><i class="material-icons vam"> post_add </i></a>
-                    <a class="btn" id="pfpNavDropdown">
-                        <img id="navpfp" class="pfp" src="./img/newjimbo.png" title="">
-                    </a>
-                </span>
-                
+                <a href="index.html" class="brand" title="Logo">
+                    <img src="./logo.png">
+                </a>
+                <div class="left">
+                                    
+                </div>
+                <div class="right">
+                    
+                    <span id="loggedOut" style="display: none;">
+                        <a class="btn" onclick="loginPopUp()" title="Log in">Log in</a>
+                    </span>
+                    <span id="loggedIn" style="display: none;">
+                        <a class="btn" href="#" title="Create Post"><i class="material-icons vam"> post_add </i></a>
+                        <a class="btn" id="pfpNavDropdown">
+                            <img id="navpfp" class="pfp" src="./img/newjimbo.png" title="">
+                        </a>
+                    </span>
+                    
+                </div>
+
             </div>
             
         </div><!-- / nav -->
@@ -59,10 +63,10 @@
         </div><!-- / nav dropdown -->
         
         <div class="page">
-            
-            <div>
 
-                <h2>Prefrences</h2>
+            <div>
+                
+                <h2 class="title">Prefrences</h2>
 
                 <h3>Theme</h3>
                 <select id="themechng" class="b">

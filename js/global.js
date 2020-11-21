@@ -184,6 +184,10 @@ function updateEmojiIndex(callback) {
 	xmlHttp.send(null);
 }
 
+function goToPost(id) {
+	window.location.href = './post.html?id=' + id;
+}
+
 function getAllUrlParams(url) {
 	var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
 	var obj = {};

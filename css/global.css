@@ -166,7 +166,7 @@ hr {
     position: fixed;
     right: var(--marginlefts);
     top: 4.5rem;
-    z-index: 99;
+    z-index: 101;
     margin-top: 0;
     background-color: var(--navbutton);
     border-top: none;
@@ -621,6 +621,7 @@ input:read-only {
 
 .profile #bio {
     background-color: var(--bio);
+    color: var(--posttext);
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 1rem;

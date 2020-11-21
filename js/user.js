@@ -34,7 +34,9 @@ function getStuff(id) {
         $("username").innerHTML = id.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").concat('<span id="verified" title="Verified user" style="display:none">' + "&#10004;&#65039;</span>");
         checkVerified(id);
         $("rank").innerHTML = "Rank: ".concat(rank);
-        $("name").innerHTML = "".concat(name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+        if (name != "Not shown" && name != "Not set") {
+            $("name").innerHTML = "".concat(name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+        }
         if (email != "Not shown" && email != "Not set") {
             $("email").innerHTML = "Email: ".concat("<a href=\"mailto:" + email.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") + "\">" + email.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</a>");
         } else {
@@ -57,6 +59,7 @@ function getStuff(id) {
                     xhttp.send("sess="+localStorage.sess+"&id="+encodeURIComponent(id));
                 }
             } else {
+                $("follow").innerText = "Follow";
                 $("follow").onclick = function(e) {
                     var xhttp = new XMLHttpRequest();
                     xhttp.onload = function() {

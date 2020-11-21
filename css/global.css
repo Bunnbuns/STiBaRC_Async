@@ -617,6 +617,7 @@ input:read-only {
 
 .profile #name {
     color: var(--footertext);
+    margin-bottom: .25rem;
 }
 
 .profile #bio {
@@ -625,4 +626,16 @@ input:read-only {
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 1rem;
+}
+
+.profile .posts {
+    display: block;
+    text-decoration: none;
+    background-color: var(--post);
+    word-wrap: break-word;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 0 12px 0;
+    color: var(--posttext);
+    box-shadow: 0px 1px 5px rgba(77, 77, 77, 0.32);
 }

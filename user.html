@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8" />
+        <title>User - STiBaRC Async</title>
+        
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
+        <link rel="icon" type="image/png" href="./fav.png">
+    	<meta name="mobile-web-app-capable" content="yes">
+	    <meta name="mobile-web-app-title" content="STiBaRC">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <link rel="stylesheet" href="./css/themes/light.css" id="themer">
+        <link rel="stylesheet" href="./css/global.css">
+
+    </head>
+    <body>
+        
+        <div class="nav">
+
+            <div class="navContainer">
+            
+                <a href="index.html" class="brand" title="Logo">
+                    <img src="./logo.png">
+                </a>
+                <div class="left">
+                                    
+                </div>
+                <div class="right">
+                    
+                    <span id="loggedOut" style="display: none;">
+                        <a class="btn" onclick="loginPopUp()" title="Log in">Log in</a>
+                    </span>
+                    <span id="loggedIn" style="display: none;">
+                        <a class="btn" href="#" title="Create Post"><i class="material-icons vam"> post_add </i></a>
+                        <a class="btn" id="pfpNavDropdown">
+                            <img id="navpfp" class="pfp" src="./img/Transparent.gif" title="">
+                        </a>
+                    </span>
+                    
+                </div>
+
+            </div>
+            
+        </div><!-- / nav -->
+        
+        <div class="nav-dropdown" id="navDropdown" style="display: none;">
+
+            <div class="loggedin">
+                <b></b><div id="loggedInAs" title=""></div></b>
+            </div>
+            <div class="loggedin">
+                <a href="./edituser.html" class="item" title="Edit Profile"><span class="text">Edit Profile</span></a>
+            </div>
+            <div>
+                <a href="./prefrences.html" class="item" title="Prefrences"><span class="text">Prefrences</span></a>
+            </div>
+            <div>
+                <a href="#" onclick="logout()" class="item" title="Log out"><span class="text">Logout</span></a>
+            </div>
+
+        </div><!-- / nav dropdown -->
+        
+        <div class="page">
+            
+            <div class="profile">
+
+                <div class="pfpBlock flex">
+                    <img id="pfp" class="pfp extraLarge" src="./img/Transparent.gif">    
+                    <span class="userInfo">
+                        <h2 id="username">Loading...</h2>
+                        <div id="name"></div>
+                    </span>
+                    <span class="flex-grow"></span>
+                    <span class="userRight">
+                        <button id="follow" class="button onli" style="font-size:15px;font-weight:bold;"></button>
+                    </span>
+                </div>
+                <div id="bio">
+                    <h4 style="margin:.5rem 0;">Bio:</h4>
+                    <div id="bioText"></div>
+                    <div style="margin:.5rem 0;"></div>
+                </div>
+                <div>
+                    <div id="email"></div>
+                    <div id="birthday"></div>
+                    <div id="rank"></div>
+                    <div id="followers"></div>
+                    <div id="following"></div>
+                </div>
+
+                <h4>Posts:</h4>
+
+                <div id="posts"></div>
+                
+            </div>
+            
+        </div><!-- / page -->
+        
+        <script src="./js/global.js"></script>
+        <script src="./js/user.js"></script>
+    </body>
+</html>

@@ -160,11 +160,6 @@ function downvote() {
 	}
 }
 
-function doneLoading() {
-    $("load").style.display = "none";
-    $("page").style.display = "";
-}
-
 function greenify() {
 	var content = $("postContent").innerHTML;
 	var tmp = content.split("<br>");

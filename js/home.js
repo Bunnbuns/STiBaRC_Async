@@ -21,7 +21,7 @@ function loadPosts(){
     $("posts").innerHTML = '<center><h2>Loading...</h2></center>';
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        var tmp = JSON.parse(xhttp.responseText);
+        var tmp = JSON.parse(this.responseText);
         $("posts").innerHTML = '';
         $("loadmorecontainer").style.display = "";
 		for (var i = tmp['totalposts']; i > tmp['totalposts']-20; i--) {

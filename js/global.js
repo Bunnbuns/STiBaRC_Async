@@ -84,7 +84,7 @@ function getUserInfo() {
         console.log('Username ls not set, requesting it.');
         var xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
-            localStorage.setItem("username",  xhttp.responseText.replace(/(\r\n|\n|\r)/gm,""));
+            localStorage.setItem("username",  this.responseText.replace(/(\r\n|\n|\r)/gm,""));
             console.log('Username ls is set.');
             updateNavDropdownContent();
             getUserPfp('navpfp', localStorage.getItem("username"));
@@ -101,7 +101,7 @@ function getUserInfo() {
 function getUserPfp(callback, username) {
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        var userPfp = xhttp.responseText;
+        var userPfp = this.responseText;
         if(callback == 'post') {
             $("postPfp").src = userPfp;
         } else {
@@ -138,15 +138,15 @@ function loadTheme() {
 // logout //
 function logout() {
 	console.log('Loging out... (Sending request to kill session)');
-    window.localStorage.removeItem("username");
-    window.localStorage.removeItem("pfp");
+    localStorage.removeItem("username");
+    localStorage.removeItem("pfp");
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        var tmp = xhttp.responseText;
+        var tmp = this.responseText;
         console.log('Loging out... (Request sent)');
         if(tmp == 'gud\n') {
             // logout went ok
-            window.localStorage.removeItem("sess");
+            localStorage.removeItem("sess");
             console.log('Loging out complete: '+tmp);
             location.href = "index.html";
         } else {
@@ -155,33 +155,33 @@ function logout() {
             alert('Logout may have failed (Request error: '+tmp+')');
         }
     };
-    xhttp.open("GET", "https://api.stibarc.com/logout.sjs?sess="+window.localStorage.getItem("sess"), true);
+    xhttp.open("GET", "https://api.stibarc.com/logout.sjs?sess="+localStorage.getItem("sess"), true);
     xhttp.send();
 }
 
 function checkVerified(poster) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onload = function() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
         var data = this.responseText.split("\n")[0];
         if (data == "true") {
             $("verified").style.display = "";
         }
     }
-	xmlHttp.open("GET", "https://api.stibarc.com/checkverify.sjs?id=" + poster, true);
-	xmlHttp.send(null);
+	xhttp.open("GET", "https://api.stibarc.com/checkverify.sjs?id=" + poster, true);
+	xhttp.send(null);
 }
 
 function updateEmojiIndex(callback) {
-	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.onload = function() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
 		emojiIndex = JSON.parse(this.responseText);
 		localStorage.setItem('emojiIndex', this.responseText);
 		if(callback == 'post') {
 			emojisReplace(emojiIndex)
 		}
 	}
-	xmlHttp.open("GET","https://cdn.stibarc.com/emojis/index.json", true);
-	xmlHttp.send(null);
+	xhttp.open("GET","https://cdn.stibarc.com/emojis/index.json", true);
+	xhttp.send(null);
 }
 
 function goToPost(id) {

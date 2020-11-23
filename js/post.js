@@ -1,34 +1,25 @@
 var postData = null;
 var pushed = false;
 
-function getRank() {
-	var thing = new XMLHttpRequest();
-	thing.open("GET", "https://api.stibarc.com/getuser.sjs?id=" + window.localStorage.getItem("username"), false);
-	thing.send(null);
-	var postData = thing.responseText;
-	var tmp = postData.split("\n");
-	var rank = tmp[4].split(":")[1];
-	return rank;
-}
-
 function postcomment(id) {
 	try {
-	var again = window.localStorage.getItem("cancommentagain");
+	var again = localStorage.getItem("cancommentagain");
 	if (again == null || again == "" || again == undefined) again = 0;
-	var content = document.getElementById("comtent").value;
+	var content = $("comtent").value;
 	if (content != "" && content != undefined && title != "" && title != undefined) {
 		if (new Date().getTime() >= again) {
 			pushed = true;
 			var n = new Date().getTime() + 15000;
-			window.localStorage.setItem("cancommentagain", n);
-			//var cookie = toJSON(document.cookie);
-			//var sess = cookie.sess;
+			localStorage.setItem("cancommentagain", n);
 			document.getElementById("comtent").value = "";
-			var sess = window.localStorage.getItem("sess");
-			var thing = new XMLHttpRequest();
-			thing.open("POST", "https://api.stibarc.com/newcomment.sjs", false);
-			thing.send("sess=" + sess + "&postid=" + id + "&content=" + encodeURIComponent(content).replace(/%0A/g, "%0D%0A"));
-			location.reload();
+			var sess = localStorage.getItem("sess");
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				location.reload();
+			}
+			xhttp.open("POST", "https://api.stibarc.com/newcomment.sjs", true);
+			xhttp.send("sess=" + sess + "&postid=" + id + "&content=" + encodeURIComponent(content).replace(/%0A/g, "%0D%0A"));
 		} else {
 			var left = again - new Date().getTime();
 			left = Math.round(left/1000);
@@ -76,9 +67,9 @@ function getAttach(postData) {
 			window.open("https://cdn.stibarc.com/images/"+postData['real_attachment']);
 		}
 	} else {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onload = function() {
-            var media = xmlHttp.responseText;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            var media = this.responseText;
             if (media.substring(5,10) == "image") {
                 var img = document.createElement("IMG");
                 img.setAttribute("id", "image");
@@ -107,13 +98,13 @@ function getAttach(postData) {
                 window.open(media);
             }
         }
-		xmlHttp.open("GET", "https://api.stibarc.com/getimage.sjs?id="+postData['attachment'], true);
-		xmlHttp.send();
+		xhttp.open("GET", "https://api.stibarc.com/getimage.sjs?id="+postData['attachment'], true);
+		xhttp.send();
 	}
 }
 
 function replyto(guy) {
-	var sess = window.localStorage.getItem("sess");
+	var sess = localStorage.getItem("sess");
 	if (sess != undefined && sess != "" && sess != null) {
 		$("comtent").value = $("comtent").value + "@" + guy + " ";
 		$("comtent").focus();
@@ -124,39 +115,39 @@ function replyto(guy) {
 
 function reloadvotes() {
 	var id = getAllUrlParams().id;
-	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id="+id, true);
-	xmlHttp.onload = function() {
-		var data = JSON.parse(xmlHttp.responseText);
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id="+id, true);
+	xhttp.onload = function() {
+		var data = JSON.parse(this.responseText);
 		$("upvotes").innerHTML = data['upvotes'];
 		$("downvotes").innerHTML = data['downvotes'];
 	}
-	xmlHttp.send();
+	xhttp.send();
 }
 
 function upvote() {
-	var sess = window.localStorage.getItem("sess");
+	var sess = localStorage.getItem("sess");
 	var id = getAllUrlParams().id;
 	if (sess != undefined && sess != "") {
-		var xhr = new XMLHttpRequest();
-		xhr.open("post", "https://api.stibarc.com/upvote.sjs", true);
-		xhr.onload = function() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "https://api.stibarc.com/upvote.sjs", true);
+		xhttp.onload = function() {
 			reloadvotes();
 		}
-		xhr.send("id="+id+"&sess="+sess);
+		xhttp.send("id="+id+"&sess="+sess);
 	}
 }
 
 function downvote() {
-	var sess = window.localStorage.getItem("sess");
+	var sess = localStorage.getItem("sess");
 	var id = getAllUrlParams().id;
 	if (sess != undefined && sess != "") {
-		var xhr = new XMLHttpRequest();
-		xhr.open("post", "https://api.stibarc.com/downvote.sjs", true);
-		xhr.onload = function(evt) {
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("post", "https://api.stibarc.com/downvote.sjs", true);
+		xhttp.onload = function() {
 			reloadvotes();
 		}
-		xhr.send("id="+id+"&sess="+sess);
+		xhttp.send("id="+id+"&sess="+sess);
 	}
 }
 
@@ -204,10 +195,10 @@ window.onload = function () {
 }
 
 function loadComments(id) {
-	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.onload = function() {
-		if (xmlHttp.responseText != "undefined\n") {
-			var comments = JSON.parse(xmlHttp.responseText);
+	var xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		if (this.responseText != "undefined\n") {
+			var comments = JSON.parse(this.responseText);
 			var commentsHTML = '';
 			for (var key in comments) {
 				var image = "";
@@ -219,8 +210,8 @@ function loadComments(id) {
 			$("comments").innerHTML = '<div id="comment">No comments</div>';
 		}
 	}
-	xmlHttp.open("GET", "https://api.stibarc.com/getcomments.sjs?id=" + id, true);
-	xmlHttp.send(null);
+	xhttp.open("GET", "https://api.stibarc.com/getcomments.sjs?id=" + id, true);
+	xhttp.send(null);
 }
 
 var htmlAbleUsernames = ["herronjo", "DomHupp", "Aldeenyo", "savaka", "alluthus", "Bunnbuns", "Merkle"];
@@ -245,7 +236,7 @@ function buildPost(data, id) {
 	if (data['edited'] == true) {
 		$("edited").style.display = "";
 	}
-	if (data.poster == window.localStorage.username) {
+	if (data.poster == localStorage.username) {
 		$("editlinkcontainer").style.display = "";
 		$("editlink").href = "editpost.html?id=" + id;
 	}
@@ -261,12 +252,12 @@ function buildPost(data, id) {
 }
 
 function loadPost(id){
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onload = function() {
-        postData = JSON.parse(xmlHttp.responseText);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        postData = JSON.parse(this.responseText);
 		buildPost(postData, id);
 		greenify();
     };
-    xmlHttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id=" + id, true);
-    xmlHttp.send();
+    xhttp.open("GET", "https://api.stibarc.com/v2/getpost.sjs?id=" + id, true);
+    xhttp.send();
 }

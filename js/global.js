@@ -171,6 +171,10 @@ function checkVerified(poster) {
 	xhttp.send(null);
 }
 
+function emojiHTML(emoji) {
+	return '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':" alt=":'+emoji+':">';
+}
+
 function updateEmojiIndex(callback) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onload = function() {

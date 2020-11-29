@@ -163,10 +163,6 @@ function greenify() {
 	$("postContent").innerHTML = tmp.join("<br>");
 }
 
-function emojiHTML(emoji) {
-	return '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':" alt=":'+emoji+':">';
-}
-
 function emojisReplace(emojiIndex) {
 	var content = $("postContent").innerHTML;
 	var title = $("postTitle").innerHTML;

@@ -1,3 +1,12 @@
+
+function emojiPost(text) {
+	for (var emoji in emojiIndex) {
+		var re = new RegExp("\\:"+emoji+"\\:","g");
+		text = text.replace(re, '<img src="https://cdn.stibarc.com/emojis/'+emojiIndex[emoji].filename+'" class="emoji" title=":'+emoji+':"></img>');
+	}
+	return text;
+}
+
 var postsHTML = '';
 function toLink(id, item){
     try{
@@ -9,7 +18,7 @@ function toLink(id, item){
         //
         //document.getElementById("list").innerHTML = document.getElementById("list").innerHTML.concat('<div class="post"><a style="font-size:100%;text-decoration:none;" href="post.html?id=').concat(id).concat('"><b>').concat(item['title'].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")).concat('</b></a><br/>Posted by: <a href="user.html?id=').concat(item['poster']).concat('">').concat(item['poster']).concat("</a><br/>&#8679; "+item['upvotes']+" &#8681; "+item['downvotes']+"</div><br/>");
         //
-        postsHTML += '<div class="post" onclick="goToPost('+id+');"><a style="font-size:100%;text-decoration:none;" href="post.html?id='+id+'"><b>'+title+'</b></a><div class="meta"><span>Posted by: <a href="user.html?id='+item['poster']+'">'+item['poster']+'</a><br>&#8679; '+item['upvotes']+' &#8681; '+item['downvotes']+'</a></span></div></div>';
+        postsHTML += '<div class="post" onclick="goToPost('+id+');"><a style="font-size:100%;text-decoration:none;" href="post.html?id='+id+'"><b>'+emojiPost(title)+'</b></a><div class="meta"><span>Posted by: <a href="user.html?id='+item['poster']+'">'+item['poster']+'</a><br>&#8679; '+item['upvotes']+' &#8681; '+item['downvotes']+'</a></span></div></div>';
         lastid = id;
       
     }catch (err){
@@ -19,6 +28,7 @@ function toLink(id, item){
 
 function loadPosts(){
     $("posts").innerHTML = '<center><h2>Loading...</h2></center>';
+    updateEmojiIndex();
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         var tmp = JSON.parse(this.responseText);

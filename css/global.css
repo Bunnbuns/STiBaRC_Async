@@ -279,7 +279,9 @@ a {
 }
 
 button.button {
-    font-size:15px;
+    font-size: 15px;
+    font-family: Verdana,sans-serif;
+    font-weight: 700;
 }
 
 .button:disabled {
@@ -596,6 +598,10 @@ input:read-only {
 .profile #name {
     color: var(--footertext);
     margin-bottom: .25rem;
+}
+
+.profile .userRight {
+    margin-left: .65rem;
 }
 
 .profile #follow {

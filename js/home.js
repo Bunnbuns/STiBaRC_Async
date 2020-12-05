@@ -1,4 +1,4 @@
-$("global").onclick = function(evt) {
+$("global").onclick = function() {
     $("blob").style.display = "";
     $("followblob").style.display = "none";
     $("global").classList.add("unsel");
@@ -6,7 +6,7 @@ $("global").onclick = function(evt) {
     $("followed").classList.add("sel");
     $("followed").classList.remove("unsel");
 }
-$("followed").onclick = function(evt) {
+$("followed").onclick = function() {
     $("blob").style.display = "none";
     $("followblob").style.display = "";
     $("global").classList.add("sel");

@@ -1,3 +1,19 @@
+$("global").onclick = function(evt) {
+    $("blob").style.display = "";
+    $("followblob").style.display = "none";
+    $("global").classList.add("unsel");
+    $("global").classList.remove("sel");
+    $("followed").classList.add("sel");
+    $("followed").classList.remove("unsel");
+}
+$("followed").onclick = function(evt) {
+    $("blob").style.display = "none";
+    $("followblob").style.display = "";
+    $("global").classList.add("sel");
+    $("global").classList.remove("unsel");
+    $("followed").classList.add("unsel");
+    $("followed").classList.remove("sel");
+}
 
 function emojiPost(text) {
 	for (var emoji in emojiIndex) {
@@ -14,10 +30,6 @@ function toLink(id, item){
             item["title"] = "Post deleted";
         }
         var title = item['title'].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        //posts = posts.concat('<a class="post" " href="post.html?id=').concat(id).concat('"><b>').concat().concat('</b><div class="1"></div>&#8679; "+item['upvotes']+" &#8681; "+item['downvotes']'+"</a>"+'<div class="2">Posted by: <a href="user.html?id=').concat(item['poster']).concat('">').concat(item['poster']).concat("</a></div>");
-        //
-        //document.getElementById("list").innerHTML = document.getElementById("list").innerHTML.concat('<div class="post"><a style="font-size:100%;text-decoration:none;" href="post.html?id=').concat(id).concat('"><b>').concat(item['title'].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")).concat('</b></a><br/>Posted by: <a href="user.html?id=').concat(item['poster']).concat('">').concat(item['poster']).concat("</a><br/>&#8679; "+item['upvotes']+" &#8681; "+item['downvotes']+"</div><br/>");
-        //
         postsHTML += '<div class="post" onclick="goToPost('+id+');"><a style="font-size:100%;text-decoration:none;" href="post.html?id='+id+'"><b>'+emojiPost(title)+'</b></a><div class="meta"><span>Posted by: <a href="user.html?id='+item['poster']+'">'+item['poster']+'</a><br>&#8679; '+item['upvotes']+' &#8681; '+item['downvotes']+'</a></span></div></div>';
         lastid = id;
       
@@ -25,6 +37,19 @@ function toLink(id, item){
         console.log(err);
     }
 }
+
+var toFollowHTML = "";
+function toFollowLink(id, item) {
+	try {
+		if (item['deleted']) {item['title'] = "Post deleted"}
+		var title = item['title'].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        toFollowHTML += '<div class="post" onclick="goToPost('+id+');"><a style="font-size:100%;text-decoration:none;" href="post.html?id='+id+'"><b>'+emojiPost(title)+'</b></a><div class="meta"><span>Posted by: <a href="user.html?id='+item['poster']+'">'+item['poster']+'</a><br>&#8679; '+item['upvotes']+' &#8681; '+item['downvotes']+'</a></span></div></div>';
+		lastfollowid = id;
+	} catch (err) {
+		console.log(err);
+	}
+}
+
 
 function loadPosts(){
     $("posts").innerHTML = '<center><h2>Loading...</h2></center>';
@@ -41,6 +66,29 @@ function loadPosts(){
     };
     xhttp.open("GET", "https://api.stibarc.com/v2/getposts.sjs", true);
     xhttp.send();
+}
+
+function loadFollowedPosts() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        if (this.responseText != "No posts\n") {
+            var followtmp = JSON.parse(this.responseText);
+            $("followedposts").innerHTML = "";
+            var tmpposts = [];
+            for (var key in followtmp) {
+                tmpposts.push(key);
+            }
+            for (var i = tmpposts.length-1; i >= 0; i--) {
+                toFollowLink(tmpposts[i], followtmp[tmpposts[i]]);
+            }
+            $("followedposts").innerHTML = toFollowHTML;
+            $("followloadmorecontainer").style.display = "";
+        } else {
+            $("followedposts").innerHTML = "It looks like you aren't following anyone, or nobody has posted yet.";
+        }
+    }
+    xhttp.open("get", "https://api.stibarc.com/v3/getfollowposts.sjs?sess="+sess, true);
+    xhttp.send(null);
 }
 
 var lastid = 1;
@@ -64,7 +112,31 @@ function loadMore() {
 	xhttp.send(null);
 }
 
+function loadMoreFollow() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        if (this.responseText.trim() != "No posts") {
+            var tmp = JSON.parse(this.responseText);
+            var tmp2 = [];
+            for (var i in tmp) {
+                tmp2.push(i);
+            }
+            for (var i = tmp2.length-1; i >= 0; i--) {
+                toFollowLink(tmp2[i],tmp[tmp2[i]]);
+            }
+            $("followedposts").innerHTML = toFollowHTML;
+        } else {
+            $("followloadmorecontainer").style.display = "none";
+        }
+    }
+    xhttp.open("GET", "https://api.stibarc.com/v3/getfollowposts.sjs?sess="+sess+"&id="+lastfollowid, true);
+	xhttp.send(null);
+}
+
 loadPosts();
+if (sess != undefined && sess != null && sess != "") {
+    loadFollowedPosts();
+}
 
 if(loggedIn){
     $('loggedOutHero').style.display = "none";

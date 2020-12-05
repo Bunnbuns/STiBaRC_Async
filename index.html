@@ -75,11 +75,31 @@
             
             <div>
 
-                <h2 class="title">Latest posts</h2>
+                <div class="flex" style="align-items: initial;">
+                    <h2 class="title">Latest posts</h2>
+                    <span class="flex-grow"></span>
+                    <div id="feedselect" style="margin-top: .5rem;">
+                        <button id="global" class="button unsel">Global feed</button> <button id="followed" class="button sel">Followed feed</button>
+                    </div>
+                </div>
+                
+                <div id="blob">
 
-                <div id="posts"></div>
+                    <div id="posts"></div>
 
-                <div id="loadmorecontainer" style="display: none;"><button onclick="loadMore();" style="font-size: 16px;" class="button full onli">Load more</button></div>
+                    <div id="loadmorecontainer" style="display: none;"><button onclick="loadMore();" style="font-size: 16px;" class="button full onli">Load more</button></div>
+    
+                </div>
+
+                <div id="followblob" style="display:none;">
+
+                    <div id="followedposts">
+                        <div><a href="login.html">Log in</a> to get your followed feed.</div>
+                    </div>
+
+                    <div id="followloadmorecontainer" style="display: none;"><button onclick="loadMoreFollow();" style="font-size: 16px;" class="button full onli">Load more</button></div>
+
+                </div>
 
             </div>
             

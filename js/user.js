@@ -47,10 +47,11 @@ function getStuff(id) {
         $("pfp").src = tmp['pfp'];
         $("followers").innerText = "Followers: "+tmp.followers.length;
         $("following").innerText = "Following: "+tmp.following.length;
+        $("follow").innerText = "Follow";
         if (localStorage.username != undefined && localStorage.sess != undefined) {
             if (tmp.followers.indexOf(localStorage.username) != -1) {
                 $("follow").innerText = "Following";
-                $("follow").onclick = function(e) {
+                $("follow").onclick = function() {
                     var xhttp = new XMLHttpRequest();
                     xhttp.onload = function() {
                         location.reload();
@@ -60,7 +61,7 @@ function getStuff(id) {
                 }
             } else {
                 $("follow").innerText = "Follow";
-                $("follow").onclick = function(e) {
+                $("follow").onclick = function() {
                     var xhttp = new XMLHttpRequest();
                     xhttp.onload = function() {
                         location.reload();

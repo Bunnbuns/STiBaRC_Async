@@ -59,7 +59,8 @@ function loadPosts(){
         var tmp = JSON.parse(this.responseText);
         $("posts").innerHTML = '';
         $("loadmorecontainer").style.display = "";
-		for (var i = tmp['totalposts']; i > tmp['totalposts']-20; i--) {
+        var totalPosts = tmp['totalposts'];
+		for (var i = totalPosts; i > totalPosts-20; i--) {
 			toLink(i,tmp[i]);
         }
         $("posts").innerHTML = postsHTML;

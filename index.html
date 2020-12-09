@@ -67,10 +67,11 @@
         <div class="page">
         
             <div class="hero" id="loggedOutHero" style="display: none;">
-                <h1>STiBaRC, but Asynchronous!</h1>
-                <br>
-                <a class="button" href="#" title="Sign up">Sign up</a>
-                <a class="button outline" onclick="loginPopUp()" title="Log in">Log in</a>
+                <h1>Welcome to STiBaRC</h1>
+                <div>
+                    <a class="button" href="#" title="Sign up">Sign up</a>
+                    <a class="button outline" onclick="loginPopUp()" title="Log in">Log in</a>
+                </div>
             </div><!-- / hero -->
             
             <div>
@@ -78,7 +79,7 @@
                 <div class="flex" style="align-items: initial;">
                     <h2 class="title" id="title">Recent posts</h2>
                     <span class="flex-grow"></span>
-                    <div id="feedselect" style="margin-top: .5rem;">
+                    <div id="feedselect" style="display: none;margin-top: .5rem;">
                         <button id="global" class="button unsel">Global feed</button> <button id="followed" class="button sel">Followed feed</button>
                     </div>
                 </div>

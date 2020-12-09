@@ -428,7 +428,7 @@ input:read-only {
     background-size: cover;
     color: white;
     text-align: center;
-    padding: 4rem 1rem 5.5rem 1rem;
+    padding: 1.25rem 1rem 2.75rem 1rem;
     border-radius: 4px;
     margin-bottom: 1rem;
 }
@@ -469,6 +469,41 @@ input:read-only {
 .hero .button.outline:hover {
     background-color: transparent;
     border-color: rgba(255, 255, 255, 0.55);
+}
+
+/*
+### loading spiner
+*/
+.loader {
+	border: 5px solid transparent;
+	border-radius: 50%;
+	border-top: 5px solid var(--bio);
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	width: 35px;
+	height: 35px;
+	-webkit-animation: spin 0.4s linear infinite;
+	animation: spin 0.4s linear infinite;
+}
+
+@-webkit-keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 .post {

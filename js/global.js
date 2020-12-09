@@ -80,7 +80,7 @@ function loginPopUp() {
 
 // get profile info //
 function getUserInfo() {
-    if(localStorage.getItem("username") == null) {
+    if(localStorage.getItem("username") == null || (localStorage.getItem("username") == '')) {
         console.log('Username ls not set, requesting it.');
         var xhttp = new XMLHttpRequest();
         xhttp.onload = function() {

@@ -52,7 +52,7 @@ function toFollowLink(id, item) {
 
 
 function loadPosts(){
-    $("posts").innerHTML = '<center><h2>Loading...</h2></center>';
+    $("posts").innerHTML = '<center><div id="load" style="display: block;"> <div class="loader"></div> </div></center>';
     updateEmojiIndex();
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
@@ -140,6 +140,7 @@ if (sess != undefined && sess != null && sess != "") {
 
 if(loggedIn){
     $('loggedOutHero').style.display = "none";
+    $('feedselect').style.display = "";
 }else{
     $('loggedOutHero').style.display = "block";
 }

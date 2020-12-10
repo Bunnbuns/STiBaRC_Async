@@ -80,21 +80,14 @@ function loginPopUp() {
 
 // get profile info //
 function getUserInfo() {
-    if(localStorage.getItem("username") == null || (localStorage.getItem("username") == '')) {
-        console.log('Username ls not set, requesting it.');
         var xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
             localStorage.setItem("username",  this.responseText.replace(/(\r\n|\n|\r)/gm,""));
-            console.log('Username ls is set.');
             updateNavDropdownContent();
             getUserPfp('navpfp', localStorage.getItem("username"));
         };
         xhttp.open('GET', 'https://api.stibarc.com/v2/getusername.sjs?sess='+localStorage.getItem("sess"), true);
         xhttp.send();
-    } else {
-        updateNavDropdownContent();
-        getUserPfp('navpfp', localStorage.getItem("username"));
-    }
 }
 
 // get profile pfp //
@@ -151,6 +144,7 @@ function logout() {
             location.href = "index.html";
         } else {
             // logout request sent but might no be ok
+            localStorage.removeItem("sess");
             console.log('Logout failed (Request error: '+tmp+')');
             alert('Logout may have failed (Request error: '+tmp+')');
         }

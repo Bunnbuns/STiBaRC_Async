@@ -50,7 +50,6 @@ function toFollowLink(id, item) {
 	}
 }
 
-
 function loadPosts(){
     $("posts").innerHTML = '<center><div id="load" style="display: block;"> <div class="loader"></div> </div></center>';
     updateEmojiIndex();

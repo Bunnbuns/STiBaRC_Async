@@ -14,6 +14,7 @@ function getPosts(id) {
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         data = this.responseText.split("\n");
+        $('posts').innerHTML = "";
         for (i = 0; i < data.length - 1; i++) {
             toLink(data[i]);
         }

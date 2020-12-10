@@ -38,7 +38,8 @@ function loadPrefrences(){
 
     $("ssk").onclick = function(){
         if (confirm("Are you sure?") == true) {
-            alert(localStorage.getItem('sess'));
+            $('ssk').style.display = 'none';
+            $('sska').innerHTML = localStorage.getItem('sess');
         } else {
             
         }

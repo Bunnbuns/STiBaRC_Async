@@ -104,6 +104,12 @@
                 <div id="comments">
                     <center><div id="load" style="display: block;"> <div class="loader"></div> </div></center>
                 </div>
+                <div id="newcomment" class="loggedin" style="display: none;">
+                    <div id="wait" style="display: none">Please wait before commenting again</div>
+                    <h4>New comment:</h4>
+                    <textarea id="comtent" name="comtent"></textarea><br>
+                    <button class="button onli" id="commentbutton" onclick="postcomment(getAllUrlParams().id)">Submit</button><br>
+                </div>
                 <br>
             </div>
             

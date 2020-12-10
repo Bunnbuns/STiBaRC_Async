@@ -6,14 +6,14 @@ function postcomment(id) {
 	var again = localStorage.getItem("cancommentagain");
 	if (again == null || again == "" || again == undefined) again = 0;
 	var content = $("comtent").value;
+	var title = document.title;
 	if (content != "" && content != undefined && title != "" && title != undefined) {
 		if (new Date().getTime() >= again) {
 			pushed = true;
 			var n = new Date().getTime() + 15000;
 			localStorage.setItem("cancommentagain", n);
-			document.getElementById("comtent").value = "";
+			$("comtent").value = "";
 			var sess = localStorage.getItem("sess");
-
 			var xhttp = new XMLHttpRequest();
 			xhttp.onload = function() {
 				location.reload();
@@ -23,12 +23,12 @@ function postcomment(id) {
 		} else {
 			var left = again - new Date().getTime();
 			left = Math.round(left/1000);
-			document.getElementById("wait").innerHTML = "Please wait " + left + " more seconds before posting again";
-			document.getElementById("wait").style.display = "";
+			$("wait").innerHTML = "Please wait " + left + " more seconds before posting again";
+			$("wait").style.display = "";
 		}
 	}
 	} catch(err) {
-		senderr(err);
+		console.log(err);
 	}
 }
 
@@ -193,6 +193,9 @@ window.onload = function () {
 function loadComments(id) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onload = function() {
+		if (sess != undefined && sess != null && sess != "") {
+			$('newcomment').style.display = '';
+		}
 		if (this.responseText != "undefined\n") {
 			var comments = JSON.parse(this.responseText);
 			var commentsHTML = '';

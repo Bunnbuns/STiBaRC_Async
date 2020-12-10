@@ -12,7 +12,7 @@ function loadPrefrences(){
         }
     } catch(err){}
 
-    $("themechng").onchange = function(evt) {
+    $("themechng").onchange = function() {
         var value = $("themechng").value;
         localStorage.setItem("theme", value);
         if (value != "custom") {
@@ -23,7 +23,7 @@ function loadPrefrences(){
         }
     }
 
-    $("submit").onclick = function(evt) {
+    $("submit").onclick = function() {
         var value = $("themecust").value;
         localStorage.setItem("customtheme", value);
         if (value.trim() != "") {
@@ -32,7 +32,15 @@ function loadPrefrences(){
         document.location = "index.html";
     }
 
-    $("logout").onclick = function(evt){
+    $("logout").onclick = function(){
         logout();
+    }
+
+    $("ssk").onclick = function(){
+        if (confirm("Are you sure?") == true) {
+            alert(localStorage.getItem('sess'));
+        } else {
+            
+        }
     }
 }

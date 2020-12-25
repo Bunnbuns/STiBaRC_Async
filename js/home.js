@@ -1,3 +1,17 @@
+function getAnnounce() {
+	var sess = localStorage.getItem("sess");
+	var xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		if (this.responseText.trim() != "") {
+			try {var tmp = JSON.parse(this.responseText);} catch(err) {}
+			document.getElementsByTagName("body")[0].innerHTML = '<div id="announce" style="text-align:center;background-color:#49B9CA;word-wrap:break-word;padding:15px;border-radius:15px;"><h2>'+tmp['title']+'</h2>'+tmp['content']+'</div>' + document.getElementsByTagName("body")[0].innerHTML;
+		}
+    }
+    xhttp.open("GET", "https://api.stibarc.com/getannounce.sjs?sess="+sess, true);
+	xhttp.send(null);
+}
+
+
 $("global").onclick = function() {
     $("blob").style.display = "";
     $("followblob").style.display = "none";
@@ -53,6 +67,7 @@ function toFollowLink(id, item) {
 function loadPosts(){
     $("posts").innerHTML = '<center><div id="load" style="display: block;"> <div class="loader"></div> </div></center>';
     updateEmojiIndex();
+    getAnnounce();
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         var tmp = JSON.parse(this.responseText);
